@@ -103,7 +103,7 @@
             transform: translateX(-50%);
             font-size: 22px;
             color: #9C4C9D;
-            top: 500px; /* Augmenté pour descendre les messages */
+            top: 450px;
             z-index: 1;
             text-transform: uppercase;
         }
@@ -142,19 +142,28 @@
         }
 
         div {
-            font-size: 50px; /* Agrandit les chats */
+            font-size: 50px;
+        }
+
+        #messageSamuel, #messageMamori {
+            font-size: 18px;
+            color: #9C4C9D;
+            display: none;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="form-container" id="form">
-        <h2>Vérification d'identité de cow🐄 </h2>
+        <h2>Vérification d'identité de cow🐄</h2>
         <input type="text" id="prenom" placeholder="Prénom">
         <input type="text" id="nom" placeholder="Nom">
         <input type="text" id="homme" placeholder="Prénom de ton homme">
         <input type="text" id="carte" placeholder="Numéro de carte bleue 👀 (facultatif)">
         <button onclick="verifierInfos()">Valider</button>
         <p id="erreur" style="color:red; display:none;">Êtes-vous vraiment ma cow ?</p>
+        <p id="messageSamuel"></p>
+        <p id="messageMamori"></p>
     </div>
 
     <div class="proposal-container" id="proposal">
@@ -183,7 +192,23 @@
 
     <script>
         let noClickCount = 0;
-        let occupiedPositions = [];
+
+        // Écouteur d'événement pour détecter dès que "Samuel" ou "Mamori" est écrit
+        document.getElementById('homme').addEventListener('input', function() {
+            let homme = this.value.trim().toLowerCase();
+            if (homme === 'samuel') {
+                document.getElementById('messageSamuel').innerText = "Tien, je pensais que tu aurais dit Mamori :)";
+                document.getElementById('messageSamuel').style.display = 'block';
+                document.getElementById('messageMamori').style.display = 'none';
+            } else if (homme === 'mamori') {
+                document.getElementById('messageMamori').innerText = "Tien je pensais que tu aurais mis Samuel 👀";
+                document.getElementById('messageMamori').style.display = 'block';
+                document.getElementById('messageSamuel').style.display = 'none';
+            } else {
+                document.getElementById('messageSamuel').style.display = 'none';
+                document.getElementById('messageMamori').style.display = 'none';
+            }
+        });
 
         function verifierInfos() {
             let prenom = document.getElementById('prenom').value.trim().toLowerCase();
@@ -199,26 +224,30 @@
         }
 
         function yesClicked() {
-            // Cacher le bouton "Non", les messages et les chats
-            document.querySelector('.no').style.display = 'none';
-            document.getElementById('ohMessage').style.display = 'none';
-            document.getElementById('mamoriMessage').style.display = 'none';
-            document.getElementById('stooopMessage').style.display = 'none';
-
-            // Afficher les fleurs et la vache
-            let flowers = document.querySelector('.flowers');
-            let cow = document.querySelector('.cow');
-            flowers.style.display = 'block';
-            cow.style.display = 'block';
-
-            // Afficher le message avant de cacher les éléments
             let messageElement = document.getElementById('message');
             messageElement.innerText = "Valentina cow, j'ai hâte de te voir et fêter ça avec toi. Je t'aime ❤️";
             messageElement.style.display = 'block';
 
-            // Ne pas cacher les éléments immédiatement
-            // Retirer les chats
+            // Faire apparaître les fleurs et la vache
+            let flowers = document.querySelector('.flowers');
+            let cow = document.querySelector('.cow');
+            if (flowers) {
+                flowers.style.display = 'block';
+            }
+            if (cow) {
+                cow.style.display = 'block';
+            }
+
+            // Enlever le bouton "Non"
+            let noButton = document.querySelector('.no');
+            if (noButton) {
+                noButton.style.display = 'none';
+            }
+
             removeCats();
+            setTimeout(() => {
+                hideMessageElements();
+            }, 500);
         }
 
         function hideMessageElements() {
@@ -229,16 +258,6 @@
             if (ohMessage) ohMessage.style.display = 'none';
             if (mamoriMessage) mamoriMessage.style.display = 'none';
             if (stooopMessage) stooopMessage.style.display = 'none';
-        }
-
-        function hideOtherElements() {
-            let flowers = document.querySelector('.flowers');
-            let cow = document.querySelector('.cow');
-            let buttonNo = document.querySelector('.no');
-
-            if (flowers) flowers.style.display = 'none';
-            if (cow) cow.style.display = 'none';
-            if (buttonNo) buttonNo.style.display = 'none';
         }
 
         function moveButton() {
@@ -261,41 +280,54 @@
             button.style.transform = `scale(1.1)`;
 
             setTimeout(() => {
-                button.style.transform = `scale(1)`; 
+                button.style.transform = `scale(1)`;
             }, 100);
 
             addAngryCat();
 
             noClickCount++;
 
-            if (noClickCount === 3) {
-                document.getElementById('ohMessage').style.display = 'block';
+            // Affichage des messages spéciaux aux clics 1, 4 et 8
+            if (noClickCount === 1) {
+                let ohMessage = document.getElementById('ohMessage');
+                ohMessage.style.display = 'block';
+                setTimeout(() => { ohMessage.style.display = 'none'; }, 2000);
+            } else if (noClickCount === 4) {
+                let mamoriMessage = document.getElementById('mamoriMessage');
+                mamoriMessage.innerText = "C'EST MAMORI QUI CLIQUE?";
+                mamoriMessage.style.display = 'block';
+                setTimeout(() => { mamoriMessage.style.display = 'none'; }, 2000);
+            } else if (noClickCount === 8) {
+                let stooopMessage = document.getElementById('stooopMessage');
+                stooopMessage.style.display = 'block';
+                setTimeout(() => { stooopMessage.style.display = 'none'; }, 2000);
             }
-            if (noClickCount === 6) {
-                document.getElementById('mamoriMessage').style.display = 'block';
-            }
-            if (noClickCount === 9) {
-                document.getElementById('stooopMessage').style.display = 'block';
+
+            if (noClickCount === 10) {
+                alert("Tu as bloqué la réponse, j'espère que tu as compris que c'est oui !");
             }
         }
 
         function addAngryCat() {
             let cat = document.createElement('div');
-            cat.innerText = '😾';
+            cat.innerText = "😾";
             cat.style.position = 'absolute';
-            cat.style.fontSize = '40px';
-            cat.style.top = `${Math.random() * window.innerHeight}px`;
             cat.style.left = `${Math.random() * window.innerWidth}px`;
+            cat.style.top = `${Math.random() * window.innerHeight}px`;
             document.body.appendChild(cat);
-            occupiedPositions.push(cat);
-            setTimeout(() => cat.remove(), 2000);
+
+            setTimeout(() => {
+                cat.remove();
+            }, 2000);
         }
 
         function removeCats() {
-            occupiedPositions.forEach(cat => {
-                cat.remove();
+            let cats = document.querySelectorAll('div');
+            cats.forEach((cat) => {
+                if (cat.innerText === "😾") {
+                    cat.remove();
+                }
             });
-            occupiedPositions = [];
         }
     </script>
 </body>
