@@ -19,12 +19,14 @@
             position: relative;
         }
 
-        .form-container, .proposal-container {
+        .form-container {
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             display: block;
+            width: 400px;
+            height: 300px;
         }
 
         input {
@@ -33,6 +35,7 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            width: 90%;
         }
 
         button {
@@ -50,7 +53,7 @@
         }
 
         .container {
-            width: 350px;
+            width: 400px;
             height: 200px;
             padding: 30px;
             border-radius: 20px;
@@ -70,7 +73,7 @@
             margin-bottom: 20px;
             font-size: 22px;
         }
-      
+
         h2 {
             margin-bottom: 20px;
             font-size: 22px;
@@ -100,7 +103,7 @@
             transform: translateX(-50%);
             font-size: 22px;
             color: #9C4C9D;
-            top: 450px;
+            top: 500px; /* Augmenté pour descendre les messages */
             z-index: 1;
             text-transform: uppercase;
         }
@@ -145,13 +148,13 @@
 </head>
 <body>
     <div class="form-container" id="form">
-        <h2>Vérification d'identité</h2>
+        <h2>Vérification d'identité de cow🐄 </h2>
         <input type="text" id="prenom" placeholder="Prénom">
         <input type="text" id="nom" placeholder="Nom">
         <input type="text" id="homme" placeholder="Prénom de ton homme">
-        <input type="text" id="carte" placeholder="Numéro de carte bleue">
+        <input type="text" id="carte" placeholder="Numéro de carte bleue 👀 (facultatif)">
         <button onclick="verifierInfos()">Valider</button>
-        <p id="erreur" style="color:red; display:none;">Informations incorrectes !</p>
+        <p id="erreur" style="color:red; display:none;">Êtes-vous vraiment ma cow ?</p>
     </div>
 
     <div class="proposal-container" id="proposal">
@@ -196,19 +199,26 @@
         }
 
         function yesClicked() {
+            // Cacher le bouton "Non", les messages et les chats
+            document.querySelector('.no').style.display = 'none';
+            document.getElementById('ohMessage').style.display = 'none';
+            document.getElementById('mamoriMessage').style.display = 'none';
+            document.getElementById('stooopMessage').style.display = 'none';
+
+            // Afficher les fleurs et la vache
+            let flowers = document.querySelector('.flowers');
+            let cow = document.querySelector('.cow');
+            flowers.style.display = 'block';
+            cow.style.display = 'block';
+
             // Afficher le message avant de cacher les éléments
             let messageElement = document.getElementById('message');
-            messageElement.innerText = "Valentina cow, j'ai hâte de te voir et fêter ça avec toi ❤️";
+            messageElement.innerText = "Valentina cow, j'ai hâte de te voir et fêter ça avec toi. Je t'aime ❤️";
             messageElement.style.display = 'block';
 
-            // Supprimer immédiatement les chats
+            // Ne pas cacher les éléments immédiatement
+            // Retirer les chats
             removeCats();
-            // Retarder la suppression des autres éléments pour une transition plus douce
-            setTimeout(() => {
-                hideMessageElements();
-                hideOtherElements();
-            }, 500);  // Délai plus court pour les autres éléments (0.5s)
-
         }
 
         function hideMessageElements() {
@@ -273,42 +283,19 @@
             let cat = document.createElement('div');
             cat.innerText = '😾';
             cat.style.position = 'absolute';
-            cat.style.fontSize = '50px';  // Taille des chats
+            cat.style.fontSize = '40px';
+            cat.style.top = `${Math.random() * window.innerHeight}px`;
+            cat.style.left = `${Math.random() * window.innerWidth}px`;
             document.body.appendChild(cat);
-
-            let position = getRandomPosition();
-            cat.style.left = `${position.x}px`;
-            cat.style.top = `${position.y}px`;
-        }
-
-        function getRandomPosition() {
-            let position = { x: 0, y: 0 };
-            let collision = true;
-
-            while (collision) {
-                position.x = Math.random() * window.innerWidth;
-                position.y = Math.random() * window.innerHeight;
-
-                // Vérifier que la position ne se trouve pas dans la boîte .container
-                let container = document.querySelector('.container');
-                let containerRect = container.getBoundingClientRect();
-
-                if (position.x < containerRect.left || position.x > containerRect.right || 
-                    position.y < containerRect.top || position.y > containerRect.bottom) {
-                    collision = false;
-                }
-            }
-
-            return position;
+            occupiedPositions.push(cat);
+            setTimeout(() => cat.remove(), 2000);
         }
 
         function removeCats() {
-            let cats = document.querySelectorAll('div');
-            cats.forEach(cat => {
-                if (cat.innerText === '😾') {
-                    cat.remove();
-                }
+            occupiedPositions.forEach(cat => {
+                cat.remove();
             });
+            occupiedPositions = [];
         }
     </script>
 </body>
