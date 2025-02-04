@@ -201,10 +201,25 @@
         }
     }
 
-    .emoji {
+     .emoji {
         position: absolute;
         font-size: 50px;
         animation: moveRight 2s forwards;
+        cursor: pointer; 
+    }
+
+    .message {
+        display: none;
+        font-size: 20px;
+        color: #333;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     </style>
 </head>
@@ -246,6 +261,7 @@
             <span class="cow">🐄</span>
             <span class="dust"></span>
         </div>
+         <div class="message" id="emojiMessage">Tu sais Marine, je te soutiendrai toujours même si tu es une "horrible cow" mais tu restes avant tout ma cow, je serais là pour t'encourager et te pousser vers le haut, car je t'aime et je veux te voir réussir, partout, et tu vas réussir. Je crois en toi (pour moi tu es une perfecta cow ne dis plus jamais ton horrible terme miteux totalement faux sinon je te mamomalédictionne. Je t'aime.</div>
     </div>
 
     <div class="game-container" id="game">
@@ -432,13 +448,19 @@
             let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
             
-            let emoji = document.createElement('div');
+          let emoji = document.createElement('div');
         emoji.className = 'emoji';
         emoji.innerText = "✉️";
         emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
         emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
+        emoji.onclick = showMessage; // Ajouter l'événement de clic
         document.body.appendChild(emoji);
-        }
+    }
+
+    function showMessage() {
+        let message = document.getElementById('emojiMessage');
+        message.style.display = 'block';
+    }
 
         function startGame() {
             const canvas = document.getElementById('gameCanvas');
