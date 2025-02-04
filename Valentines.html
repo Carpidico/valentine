@@ -6,6 +6,7 @@
     <title>Vérification d'identité et Proposition</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -125,6 +126,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 80px;
+            cursor: pointer; /* Ajout du curseur pointeur pour la vache */
         }
 
         @keyframes fadeIn {
@@ -147,9 +149,10 @@
             margin-top: 10px;
         }
         
-        /* Ajout de la couleur noire pour le texte du message */
+        /* Ajout de la couleur noire et de la police Satisfy pour le texte du message */
         #message {
             color: black;
+            font-family: 'Satisfy', cursive;
         }
     </style>
 </head>
@@ -185,7 +188,7 @@
             🌸🌸🌸
         </div>
 
-        <div class="cow">
+        <div class="cow" onclick="addDustEmoji()">
             🐄
         </div>
     </div>
@@ -336,6 +339,21 @@
                     cat.remove();
                 }
             });
+        }
+
+        function addDustEmoji() {
+            console.log("Appel de la fonction addDustEmoji");
+            let cow = document.querySelector('.cow');
+            let dust = document.createElement('div');
+            dust.innerText = "💨";
+            dust.style.position = 'absolute';
+            dust.style.left = `${cow.offsetLeft + cow.offsetWidth + 10}px`;
+            dust.style.top = `${cow.offsetTop}px`;
+            document.body.appendChild(dust);
+
+            setTimeout(() => {
+                dust.remove();
+            }, 2000);
         }
     </script>
 </body>
