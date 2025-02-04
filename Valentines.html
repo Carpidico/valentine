@@ -415,11 +415,18 @@
             gameOver = false;
             counter = 0;
 
+            let obstacleTimer = 0;
+            let obstacleInterval = getRandomInterval();
+
             document.addEventListener('keydown', (e) => {
                 if (e.key === ' ') {
                     cow.dy = -cow.jump;
                 }
             });
+
+            function getRandomInterval() {
+                return Math.floor(Math.random() * 100) + 50;  // Intervalle aléatoire entre 50 et 150 frames
+            }
 
             function update() {
                 if (gameOver) return;
@@ -436,9 +443,12 @@
                     cow.dy = 0;
                 }
 
-                if (frame % 100 === 0) {
+                obstacleTimer++;
+                if (obstacleTimer >= obstacleInterval) {
                     let height = 50;
                     obstacles.push({ x: canvas.width, y: canvas.height - height, width: 20, height: height, passed: false });
+                    obstacleTimer = 0;
+                    obstacleInterval = getRandomInterval();  // Réinitialiser l'intervalle aléatoire
                 }
 
                 obstacles.forEach((obstacle, index) => {
