@@ -36,7 +36,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 90%;
-            margin-bottom: 15px; /* Ajout de la marge en bas */
+            margin-bottom: 15px;
         }
 
         button {
@@ -54,8 +54,8 @@
         }
 
         .container {
-            width: 700px; /* Agrandissement de la boîte */
-            height: 500px; /* Agrandissement de la boîte */
+            width: 700px;
+            height: 500px;
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -71,7 +71,7 @@
         }
 
         h1, h2 {
-            margin-bottom: 10px; /* Réduction de la marge */
+            margin-bottom: 10px;
             font-size: 22px;
         }
 
@@ -115,7 +115,7 @@
         }
 
         .flowers {
-            top: 0px; /* Ajustement de la position des fleurs */
+            top: 0px;
             left: 50%;
             transform: translateX(-50%);
             display: none;
@@ -126,7 +126,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 80px;
-            cursor: pointer; /* Ajout du curseur pointeur pour la vache */
+            cursor: pointer;
             display: none;
         }
 
@@ -153,12 +153,21 @@
             display: none;
             margin-top: 10px;
         }
-        
-        /* Ajout de la couleur noire et de la police Satisfy pour le texte du message */
+
         #message {
             color: black;
             font-family: 'Satisfy', cursive;
-            overflow-y: auto; /* Ajout du défilement vertical si le texte dépasse */
+            overflow-y: auto;
+        }
+
+        .game-container {
+            display: none;
+            text-align: center;
+        }
+
+        #gameCanvas {
+            border: 1px solid black;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
@@ -202,10 +211,15 @@
         </div>
     </div>
 
+    <div class="game-container" id="game">
+        <canvas id="gameCanvas" width="800" height="200"></canvas>
+        <p id="gameOverMessage" style="display: none;">Tu as gagné ! Reviens à la proposition.</p>
+        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+    </div>
+
     <script>
         let noClickCount = 0;
 
-        // Écouteur d'événement pour détecter dès que "Samuel", "Mamori" ou "marron" est écrit
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
             if (homme === 'samuel') {
@@ -264,7 +278,6 @@
             PS : ne clique pas sur la cow 👀 PSPS. (on dirait j'appelle un chat jppp) (Si tu peux vraiment pas je comprend, je voulais juste que tu le saches)`;
             messageElement.style.display = 'block';
 
-            // Faire apparaître les fleurs et la vache
             let flowers = document.querySelector('.flowers');
             let cowContainer = document.querySelector('.cow-container');
             if (flowers) {
@@ -274,7 +287,6 @@
                 cowContainer.style.display = 'block';
             }
 
-            // Enlever le bouton "Non"
             let noButton = document.querySelector('.no');
             if (noButton) {
                 noButton.style.display = 'none';
@@ -303,6 +315,11 @@
                 let button = document.querySelector('.no');
                 button.disabled = true;
                 button.innerText = "Bloqué!";
+                
+                document.getElementById('proposal').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
+                startGame();
+                
                 return;
             }
 
@@ -325,7 +342,6 @@
 
             noClickCount++;
 
-            // Affichage des messages spéciaux aux clics 1, 4 et 8
             if (noClickCount === 1) {
                 let ohMessage = document.getElementById('ohMessage');
                 ohMessage.style.display = 'block';
@@ -374,6 +390,83 @@
             console.log("Appel de la fonction addDustEmoji");
             let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
+        }
+
+        function startGame() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let cow = { x: 50, y: 150, width: 50, height: 50, dy: 0, gravity: 0.5, jump: 10 };
+            let obstacles = [];
+            let frame = 0;
+            let gameOver = false;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === ' ') {
+                    cow.dy = -cow.jump;
+                }
+            });
+
+            function update() {
+                if (gameOver) return;
+
+                frame++;
+                cow.dy += cow.gravity;
+                cow.y += cow.dy;
+
+                if (cow.y + cow.height > canvas.height || cow.y < 0) {
+                    endGame();
+                }
+
+                if (frame % 100 === 0) {
+                    obstacles.push({ x: canvas.width, y: canvas.height - 50, width: 20, height: 50 });
+                }
+
+                obstacles.forEach((obstacle, index) => {
+                    obstacle.x -= 5;
+                    if (obstacle.x + obstacle.width < 0) {
+                        obstacles.splice(index, 1);
+                    }
+
+                    if (
+                        cow.x < obstacle.x + obstacle.width &&
+                        cow.x + cow.width > obstacle.x &&
+                        cow.y < obstacle.y + obstacle.height &&
+                        cow.y + cow.height > obstacle.y
+                    ) {
+                        endGame();
+                    }
+                });
+
+                draw();
+                requestAnimationFrame(update);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'brown';
+                ctx.fillRect(cow.x, cow.y, cow.width, cow.height);
+
+                ctx.fillStyle = 'black';
+                obstacles.forEach((obstacle) => {
+                    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                });
+            }
+
+            function endGame() {
+                gameOver = true;
+                document.getElementById('gameOverMessage').style.display = 'block';
+                document.getElementById('backToProposal').style.display = 'block';
+            }
+
+            update();
+        }
+
+        function backToProposal() {
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('proposal').style.display = 'block';
+            document.querySelector('.yes').disabled = false;
         }
     </script>
 </body>
