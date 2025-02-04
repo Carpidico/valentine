@@ -80,6 +80,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            position: relative;
         }
 
         button.yes {
@@ -296,10 +297,17 @@
 
             let button = document.querySelector('.no');
             let container = document.querySelector('.container');
-            let maxX = container.offsetWidth - button.offsetWidth - 10;
-            let maxY = container.offsetHeight - button.offsetHeight - 10;
+            let maxX = container.clientWidth - button.clientWidth;
+            let maxY = container.clientHeight - button.clientHeight;
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
+
+            // Assure que le bouton "Non" ne se chevauche pas avec le bouton "Oui"
+            if (x < 200 && y < 50) {
+                x += 200;
+                y += 50;
+            }
+
             button.style.transform = `translate(${x}px, ${y}px)`; /* Utilisation de transform pour le glissement */
             button.style.transition = 'transform 1s ease'; /* Ajout de la transition pour animer le déplacement */
 
