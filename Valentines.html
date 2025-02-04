@@ -90,7 +90,7 @@
             background-color: #FF4C4C;
             color: white;
             position: relative;
-            transition: transform 0.2s ease-in-out;
+            transition: transform 0.5s ease; /* Ajout de la transition pour animer le déplacement */
         }
 
         .message-container {
@@ -302,11 +302,8 @@
             button.style.position = 'absolute';
             button.style.left = `${x}px`;
             button.style.top = `${y}px`;
-            button.style.transform = `scale(1.1)`;
-
-            setTimeout(() => {
-                button.style.transform = `scale(1)`;
-            }, 100);
+            button.style.transform = `translate(${x}px, ${y}px)`; /* Utilisation de transform pour le glissement */
+            button.style.transition = 'transform 0.5s ease'; /* Ajout de la transition pour animer le déplacement */
 
             addAngryCat();
 
