@@ -169,6 +169,15 @@
             border: 1px solid black;
             background-color: #f9f9f9;
         }
+
+        #counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: black;
+            font-family: Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -215,6 +224,7 @@
         <canvas id="gameCanvas" width="800" height="200"></canvas>
         <p id="gameOverMessage" style="display: none;">Tu as gagné ! Reviens à la proposition.</p>
         <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <div id="counter">0/10</div>
     </div>
 
     <script>
@@ -400,6 +410,7 @@
             let obstacles = [];
             let frame = 0;
             let gameOver = false;
+            let counter = 0;
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === ' ') {
@@ -414,8 +425,12 @@
                 cow.dy += cow.gravity;
                 cow.y += cow.dy;
 
-                if (cow.y + cow.height > canvas.height || cow.y < 0) {
-                    endGame();
+                if (cow.y + cow.height > canvas.height) {
+                    cow.y = canvas.height - cow.height;
+                    cow.dy = 0;
+                } else if (cow.y < 0) {
+                    cow.y = 0;
+                    cow.dy = 0;
                 }
 
                 if (frame % 100 === 0) {
@@ -435,6 +450,15 @@
                         cow.y + cow.height > obstacle.y
                     ) {
                         endGame();
+                    }
+
+                    if (obstacle.x + obstacle.width < cow.x && !obstacle.passed) {
+                        obstacle.passed = true;
+                        counter++;
+                        document.getElementById('counter').innerText = `${counter}/10`;
+                        if (counter >= 10) {
+                            endGame();
+                        }
                     }
                 });
 
@@ -468,6 +492,4 @@
             document.getElementById('proposal').style.display = 'block';
             document.querySelector('.yes').disabled = false;
         }
-    </script>
-</body>
-</html>
+    </
