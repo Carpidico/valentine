@@ -416,6 +416,18 @@
             console.log("Appel de la fonction addDustEmoji");
             let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
+            
+            let emoji = document.createElement('div');
+        emoji.className = 'emoji';
+        emoji.innerText = "✉️";
+        emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
+        emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
+        document.body.appendChild(emoji);
+
+        setTimeout(() => {
+            emoji.remove();
+        }, 2000);
+
         }
 
         function startGame() {
