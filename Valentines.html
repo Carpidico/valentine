@@ -434,7 +434,8 @@
                 }
 
                 if (frame % 100 === 0) {
-                    obstacles.push({ x: canvas.width, y: canvas.height - 50, width: 20, height: 50 });
+                    let height = 50;
+                    obstacles.push({ x: canvas.width, y: canvas.height - height, width: 20, height: height, passed: false });
                 }
 
                 obstacles.forEach((obstacle, index) => {
@@ -457,7 +458,9 @@
                         counter++;
                         document.getElementById('counter').innerText = `${counter}/10`;
                         if (counter >= 10) {
-                            endGame();
+                            gameOver = true;
+                            document.getElementById('gameOverMessage').style.display = 'block';
+                            document.getElementById('backToProposal').style.display = 'block';
                         }
                     }
                 });
@@ -474,14 +477,8 @@
 
                 ctx.fillStyle = 'black';
                 obstacles.forEach((obstacle) => {
-                    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                    ctx.fillText("👹", obstacle.x, obstacle.y + obstacle.height);
                 });
-            }
-
-            function endGame() {
-                gameOver = true;
-                document.getElementById('gameOverMessage').style.display = 'block';
-                document.getElementById('backToProposal').style.display = 'block';
             }
 
             update();
@@ -492,4 +489,6 @@
             document.getElementById('proposal').style.display = 'block';
             document.querySelector('.yes').disabled = false;
         }
-    </
+    </script>
+</body>
+</html>
