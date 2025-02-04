@@ -109,7 +109,7 @@
             display: none;
         }
 
-        .flowers, .cow {
+        .flowers, .cow-container {
             display: none;
             position: absolute;
             animation: fadeIn 2s forwards;
@@ -121,12 +121,16 @@
             transform: translateX(-50%);
         }
 
-        .cow {
+        .cow-container {
             bottom: 5%;
             left: 50%;
             transform: translateX(-50%);
             font-size: 80px;
             cursor: pointer; /* Ajout du curseur pointeur pour la vache */
+        }
+
+        .cow-container span {
+            display: inline-block;
         }
 
         @keyframes fadeIn {
@@ -188,8 +192,9 @@
             🌸🌸🌸
         </div>
 
-        <div class="cow" onclick="addDustEmoji()">
-            🐄
+        <div class="cow-container" onclick="addDustEmoji()">
+            <span class="cow">🐄</span>
+            <span class="dust"></span>
         </div>
     </div>
 
@@ -232,17 +237,17 @@
         function yesClicked() {
             console.log("Appel de la fonction yesClicked");
             let messageElement = document.getElementById('message');
-            messageElement.innerText = "Je veux venir Marine, passer un moment avec toi. Toi qui es dans mon coeur. Toi que mon âme sohaite revoir. même pour quelques minutes ou quelques heures, car avec toi je ne vois pas le temps passé, je voudrais venir l'après midi ou dans la soirée, te prendre dans mes bras puis profiter. Si tu me dis oui alors je prendrai un hôtel car je sais que tu aimes, puis qu'on passe la nuit là bas à s'aimer. puis le lendemain je repartirai. (on pourra quand même prévoir de se voir une autre fois hein😾 ) ";
+            messageElement.innerText = "Je veux venir Marine, passer un moment avec toi. Toi qui es dans mon coeur. Toi que mon âme sohaite revoir. même pour quelques minutes ou quelques heures, car avec toi je ne vois pas le temps passé, je voudrais venir l'après midi ou dans la soirée, te prendre dans mes bras puis profiter. Si tu me dis oui alors je prendrai un hôtel car je sais que tu aimes, puis qu'on passe la nuit là bas à s'aimer. puis le lendemain je repartirai. (on pourra quand même prévoir de se voir une autre fois hein😾 )PS. ne clique pas sur la cow👀 ";
             messageElement.style.display = 'block';
 
             // Faire apparaître les fleurs et la vache
             let flowers = document.querySelector('.flowers');
-            let cow = document.querySelector('.cow');
+            let cowContainer = document.querySelector('.cow-container');
             if (flowers) {
                 flowers.style.display = 'block';
             }
-            if (cow) {
-                cow.style.display = 'block';
+            if (cowContainer) {
+                cowContainer.style.display = 'block';
             }
 
             // Enlever le bouton "Non"
@@ -343,17 +348,8 @@
 
         function addDustEmoji() {
             console.log("Appel de la fonction addDustEmoji");
-            let cow = document.querySelector('.cow');
-            let dust = document.createElement('div');
+            let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
-            dust.style.position = 'absolute';
-            dust.style.left = `${cow.offsetLeft + cow.offsetWidth + 10}px`;
-            dust.style.top = `${cow.offsetTop}px`;
-            document.body.appendChild(dust);
-
-            setTimeout(() => {
-                dust.remove();
-            }, 2000);
         }
     </script>
 </body>
