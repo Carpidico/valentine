@@ -54,8 +54,8 @@
         }
 
         .container {
-            width: 600px; /* Agrandissement de la boîte */
-            height: 400px; /* Agrandissement de la boîte */
+            width: 700px; /* Agrandissement de la boîte */
+            height: 500px; /* Agrandissement de la boîte */
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -71,7 +71,7 @@
         }
 
         h1, h2 {
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Réduction de la marge */
             font-size: 22px;
         }
 
@@ -157,6 +157,7 @@
         #message {
             color: black;
             font-family: 'Satisfy', cursive;
+            overflow-y: auto; /* Ajout du défilement vertical si le texte dépasse */
         }
     </style>
 </head>
@@ -237,7 +238,7 @@
         function yesClicked() {
             console.log("Appel de la fonction yesClicked");
             let messageElement = document.getElementById('message');
-            let messageText = `Je veux venir, Marine, passer un moment avec toi, toi qui occupes si joliment mon cœur.
+            messageElement.innerText = `Je veux venir, Marine, passer un moment avec toi, toi qui occupes si joliment mon cœur.
             Toi que mon âme souhaite revoir, même pour quelques minutes, même pour quelques heures.
             Car, avec toi, le temps s'évapore, et chaque instant devient une éternité que je voudrais savourer sans m'en lasser.
             Je voudrais venir l'après-midi, ou dans la soirée, te prendre dans mes bras et profiter de chaque seconde à tes côtés.
@@ -247,7 +248,6 @@
             Puis, le lendemain, je repartirais, mais je garderai en moi ces moments précieux que je chérirai.
             (On pourra quand même prévoir de se voir une autre fois, hein 😾)
             PS : ne clique pas sur la cow 👀 PSPS. (on dirait j'appelle un chat jppp) (Si tu peux vraiment pas je comprend, je voulais juste que tu le saches)`;
-            messageElement.innerText = messageText;
             messageElement.style.display = 'block';
 
             // Faire apparaître les fleurs et la vache
