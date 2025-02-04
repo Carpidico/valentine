@@ -147,7 +147,7 @@
             font-size: 50px;
         }
 
-        #messageSamuel, #messageMamori {
+        #messageSamuel, #messageMamori, #messageCeinture {
             font-size: 18px;
             color: #9C4C9D;
             display: none;
@@ -169,10 +169,12 @@
         <input type="text" id="nom" placeholder="Nom">
         <input type="text" id="homme" placeholder="Prénom de ton homme">
         <input type="text" id="carte" placeholder="Ton code de téléphone cette fois stp">
+        <input type="text" id="ceinture" placeholder="Ta ceinture de karaté">
         <button onclick="verifierInfos()">Valider</button>
         <p id="erreur" style="color:red; display:none;">Imposteuracow ?</p>
         <p id="messageSamuel"></p>
         <p id="messageMamori"></p>
+        <p id="messageCeinture"></p>
     </div>
 
     <div class="proposal-container" id="proposal">
@@ -203,7 +205,7 @@
     <script>
         let noClickCount = 0;
 
-        // Écouteur d'événement pour détecter dès que "Samuel" ou "Mamori" est écrit
+        // Écouteur d'événement pour détecter dès que "Samuel", "Mamori" ou "marron" est écrit
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
             if (homme === 'samuel') {
@@ -220,15 +222,26 @@
             }
         });
 
+        document.getElementById('ceinture').addEventListener('input', function() {
+            let ceinture = this.value.trim().toLowerCase();
+            if (ceinture === 'marron') {
+                document.getElementById('messageCeinture').innerText = "Je veux bien te mettre ma ceinture marron autour de tes mains";
+                document.getElementById('messageCeinture').style.display = 'block';
+            } else {
+                document.getElementById('messageCeinture').style.display = 'none';
+            }
+        });
+
         function verifierInfos() {
             console.log("Appel de la fonction verifierInfos");
             let prenom = document.getElementById('prenom').value.trim().toLowerCase();
             let nom = document.getElementById('nom').value.trim().toLowerCase();
             let homme = document.getElementById('homme').value.trim().toLowerCase();
+            let ceinture = document.getElementById('ceinture').value.trim().toLowerCase();
 
-            console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}`);
+            console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}, Ceinture: ${ceinture}`);
 
-            if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori')) {
+            if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori') && ceinture === 'marron') {
                 document.getElementById('form').style.display = 'none';
                 document.getElementById('proposal').style.display = 'block';
             } else {
