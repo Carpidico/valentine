@@ -486,4 +486,14 @@
                 });
             }
 
-            function endGame()
+            update();
+        }
+
+        function backToProposal() {
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('proposal').style.display = 'block';
+            document.querySelector('.yes').disabled = false;
+        }
+    </script>
+</body>
+</html>
