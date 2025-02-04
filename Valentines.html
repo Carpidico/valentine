@@ -155,20 +155,20 @@
 </head>
 <body>
     <div class="form-container" id="form">
-        <h2>Vérification d'identité de cow🐄</h2>
+        <h2>OH! Tu es de retour cow?🐄</h2>
         <input type="text" id="prenom" placeholder="Prénom">
         <input type="text" id="nom" placeholder="Nom">
         <input type="text" id="homme" placeholder="Prénom de ton homme">
-        <input type="text" id="carte" placeholder="Numéro de carte bleue 👀 (facultatif)">
+        <input type="text" id="carte" placeholder="Ton code de téléphone cette fois stp">
         <button onclick="verifierInfos()">Valider</button>
-        <p id="erreur" style="color:red; display:none;">Êtes-vous vraiment ma cow ?</p>
+        <p id="erreur" style="color:red; display:none;">Imposteuracow ?</p>
         <p id="messageSamuel"></p>
         <p id="messageMamori"></p>
     </div>
 
     <div class="proposal-container" id="proposal">
         <div class="container">
-            <h1>Ma chère Marine, acceptes-tu d'être ma Valentine ce 14 février ?</h1>
+            <h1>Marine, tu seras ma Valentine ce 14 février.</h1>
             <div class="buttons">
                 <button class="yes" onclick="yesClicked()">Oui</button>
                 <button class="no" onclick="moveButton()">Non</button>
@@ -177,8 +177,8 @@
         </div>
         <div class="message-container">
             <p id="ohMessage">OH!</p>
-            <p id="mamoriMessage">C'EST MAMORI QUI CLIQUE OU QUOI?</p>
-            <p id="stooopMessage">STOOOOP!</p>
+            <p id="mamoriMessage">Tu n'as pas le choix ma petite pute</p>
+            <p id="stooopMessage">Je veux te voir</p>
         </div>
 
         <div class="flowers">
@@ -197,11 +197,11 @@
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
             if (homme === 'samuel') {
-                document.getElementById('messageSamuel').innerText = "Tien, je pensais que tu aurais dit Mamori :)";
+                document.getElementById('messageSamuel').innerText = "Good Girl :)";
                 document.getElementById('messageSamuel').style.display = 'block';
                 document.getElementById('messageMamori').style.display = 'none';
             } else if (homme === 'mamori') {
-                document.getElementById('messageMamori').innerText = "Tien je pensais que tu aurais mis Samuel 👀";
+                document.getElementById('messageMamori').innerText = "Tu es vilaine ça y'est met mon Prénom un peu😾";
                 document.getElementById('messageMamori').style.display = 'block';
                 document.getElementById('messageSamuel').style.display = 'none';
             } else {
@@ -211,9 +211,12 @@
         });
 
         function verifierInfos() {
+            console.log("Appel de la fonction verifierInfos");
             let prenom = document.getElementById('prenom').value.trim().toLowerCase();
             let nom = document.getElementById('nom').value.trim().toLowerCase();
             let homme = document.getElementById('homme').value.trim().toLowerCase();
+
+            console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}`);
 
             if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori')) {
                 document.getElementById('form').style.display = 'none';
@@ -224,8 +227,9 @@
         }
 
         function yesClicked() {
+            console.log("Appel de la fonction yesClicked");
             let messageElement = document.getElementById('message');
-            messageElement.innerText = "Valentina cow, j'ai hâte de te voir et fêter ça avec toi. Je t'aime ❤️";
+            messageElement.innerText = "Je veux venir Marine, passer un moment avec toi. Toi qui es dans mon coeur. Toi que mon âme sohaite revoir. même pour quelques minutes ou quelques heures, car avec toi je ne vois pas le temps passé, je voudrais venir l'après midi ou dans la soirée, te prendre dans mes bras puis profiter. Si tu me dis oui alors je prendrai un hôtel car je sais que tu aimes, puis qu'on passe la nuit là bas à s'aimer. puis le lendemain je repartirai. (on pourra quand même prévoir de se voir une autre fois hein😾 ) ";
             messageElement.style.display = 'block';
 
             // Faire apparaître les fleurs et la vache
@@ -251,6 +255,7 @@
         }
 
         function hideMessageElements() {
+            console.log("Appel de la fonction hideMessageElements");
             let ohMessage = document.getElementById('ohMessage');
             let mamoriMessage = document.getElementById('mamoriMessage');
             let stooopMessage = document.getElementById('stooopMessage');
@@ -261,6 +266,7 @@
         }
 
         function moveButton() {
+            console.log("Appel de la fonction moveButton");
             if (noClickCount >= 10) {
                 let button = document.querySelector('.no');
                 button.disabled = true;
@@ -294,7 +300,7 @@
                 setTimeout(() => { ohMessage.style.display = 'none'; }, 2000);
             } else if (noClickCount === 4) {
                 let mamoriMessage = document.getElementById('mamoriMessage');
-                mamoriMessage.innerText = "C'EST MAMORI QUI CLIQUE?";
+                mamoriMessage.innerText = "Tu n'as pas le choix ma petite pute";
                 mamoriMessage.style.display = 'block';
                 setTimeout(() => { mamoriMessage.style.display = 'none'; }, 2000);
             } else if (noClickCount === 8) {
@@ -304,11 +310,12 @@
             }
 
             if (noClickCount === 10) {
-                alert("Tu es vilaine je suis obligé de bloquer le bouton, j'espère que tu as compris que c'est oui !");
+                alert("Tu vas me refaire le coup vilaine, je t'aime mon coeur mais tu es têtu. Oh!");
             }
         }
 
         function addAngryCat() {
+            console.log("Appel de la fonction addAngryCat");
             let cat = document.createElement('div');
             cat.innerText = "😾";
             cat.style.position = 'absolute';
@@ -322,6 +329,7 @@
         }
 
         function removeCats() {
+            console.log("Appel de la fonction removeCats");
             let cats = document.querySelectorAll('div');
             cats.forEach((cat) => {
                 if (cat.innerText === "😾") {
