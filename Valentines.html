@@ -110,23 +110,24 @@
         }
 
         .flowers, .cow-container {
-            display: none;
             position: absolute;
             animation: fadeIn 2s forwards;
         }
 
         .flowers {
-            top: 10%;
+            top: -50px; /* Positionnement au-dessus de la boîte */
             left: 50%;
             transform: translateX(-50%);
+            display: none;
         }
 
         .cow-container {
-            bottom: 5%;
+            bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
             font-size: 80px;
             cursor: pointer; /* Ajout du curseur pointeur pour la vache */
+            display: none;
         }
 
         .cow-container span {
