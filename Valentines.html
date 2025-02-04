@@ -53,8 +53,8 @@
         }
 
         .container {
-            width: 400px;
-            height: 200px;
+            width: 600px; /* Agrandissement de la boîte */
+            height: 400px; /* Agrandissement de la boîte */
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -69,12 +69,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        h2 {
+        h1, h2 {
             margin-bottom: 20px;
             font-size: 22px;
         }
@@ -151,6 +146,11 @@
             display: none;
             margin-top: 10px;
         }
+        
+        /* Ajout de la couleur noire pour le texte du message */
+        #message {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -173,7 +173,7 @@
                 <button class="yes" onclick="yesClicked()">Oui</button>
                 <button class="no" onclick="moveButton()">Non</button>
             </div>
-            <p id="message" style="display:none; margin-top:20px; font-size:18px; color:#4CAF50;"></p>
+            <p id="message" style="display:none; margin-top:20px; font-size:18px;"></p>
         </div>
         <div class="message-container">
             <p id="ohMessage">OH!</p>
