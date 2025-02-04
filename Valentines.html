@@ -63,6 +63,7 @@
             border: 3px solid #9C4C9D;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            overflow: hidden; /* Empêche les éléments de sortir de la boîte */
         }
 
         .container:hover {
@@ -89,8 +90,8 @@
         button.no {
             background-color: #FF4C4C;
             color: white;
-            position: relative;
-            transition: transform 0.5s ease; /* Ajout de la transition pour animer le déplacement */
+            position: absolute;
+            transition: transform 1s ease; /* Ajout de la transition pour animer le déplacement */
         }
 
         .message-container {
@@ -299,11 +300,8 @@
             let maxY = container.offsetHeight - button.offsetHeight - 10;
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
-            button.style.position = 'absolute';
-            button.style.left = `${x}px`;
-            button.style.top = `${y}px`;
             button.style.transform = `translate(${x}px, ${y}px)`; /* Utilisation de transform pour le glissement */
-            button.style.transition = 'transform 0.5s ease'; /* Ajout de la transition pour animer le déplacement */
+            button.style.transition = 'transform 1s ease'; /* Ajout de la transition pour animer le déplacement */
 
             addAngryCat();
 
