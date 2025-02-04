@@ -220,6 +220,7 @@
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px; /* Ajouter un espace sous l'émoji */
     }
     </style>
 </head>
@@ -455,6 +456,10 @@
         emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
         emoji.onclick = showMessage; // Ajouter l'événement de clic
         document.body.appendChild(emoji);
+
+        let message = document.getElementById('emojiMessage');
+        message.style.left = `${document.querySelector('.cow').offsetLeft}px`;
+        message.style.top = `${document.querySelector('.cow').offsetTop + 60}px`;
     }
 
     function showMessage() {
