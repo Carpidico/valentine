@@ -222,13 +222,16 @@
 
     <div class="game-container" id="game">
         <canvas id="gameCanvas" width="800" height="200"></canvas>
-        <p id="gameOverMessage" style="display: none;">Tu as gagné ! Reviens à la proposition.</p>
+        <p id="gameOverMessage" style="display: none;">Tu as perdu ! Reviens à la proposition.</p>
         <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
 
     <script>
         let noClickCount = 0;
+        let gameOver = false;
+        let counter = 0;
 
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
@@ -409,8 +412,8 @@
             let cow = { x: 50, y: 150, width: 50, height: 50, dy: 0, gravity: 0.5, jump: 10 };
             let obstacles = [];
             let frame = 0;
-            let gameOver = false;
-            let counter = 0;
+            gameOver = false;
+            counter = 0;
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === ' ') {
@@ -459,6 +462,7 @@
                         document.getElementById('counter').innerText = `${counter}/10`;
                         if (counter >= 10) {
                             gameOver = true;
+                            document.getElementById('gameOverMessage').innerText = "Tu as gagné ! Reviens à la proposition.";
                             document.getElementById('gameOverMessage').style.display = 'block';
                             document.getElementById('backToProposal').style.display = 'block';
                         }
@@ -472,8 +476,9 @@
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = 'brown';
-                ctx.fillRect(cow.x, cow.y, cow.width, cow.height);
+                // Dessiner l'emoji "🐄" pour représenter la vache
+                ctx.font = "50px Arial";
+                ctx.fillText("🐄", cow.x, cow.y + cow.height);
 
                 ctx.fillStyle = 'black';
                 obstacles.forEach((obstacle) => {
@@ -481,14 +486,4 @@
                 });
             }
 
-            update();
-        }
-
-        function backToProposal() {
-            document.getElementById('game').style.display = 'none';
-            document.getElementById('proposal').style.display = 'block';
-            document.querySelector('.yes').disabled = false;
-        }
-    </script>
-</body>
-</html>
+            function endGame()
