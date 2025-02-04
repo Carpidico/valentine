@@ -213,9 +213,6 @@
         font-size: 20px;
         color: #333;
         position: absolute;
-        left: 50%;
-        top: 60px; /* Ajuster pour placer sous l'émoji */
-        transform: translateX(-50%);
         background-color: #fff;
         padding: 10px;
         border-radius: 5px;
@@ -224,6 +221,7 @@
         max-height: 200px; /* Hauteur maximale */
         overflow-y: auto; /* Activer le défilement vertical si nécessaire */
         word-wrap: break-word; /* Permettre l'enroulement du texte */
+        transform: translateX(-50%); /* Centrer horizontalement */
     }
     </style>
 </head>
@@ -452,24 +450,26 @@
             let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
             
-          let emoji = document.createElement('div');
+           let emoji = document.createElement('div');
         emoji.className = 'emoji';
         emoji.innerText = "✉️";
+        document.body.appendChild(emoji);
+
+        // Positionner l'émoji
         emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
         emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
         emoji.onclick = showMessage; // Ajouter l'événement de clic
-        document.body.appendChild(emoji);
 
+        // Placer le conteneur de message en dessous de l'émoji et centré
         let message = document.getElementById('emojiMessage');
-        message.style.left = `${document.querySelector('.cow').offsetLeft}px`;
-        message.style.top = `${document.querySelector('.cow').offsetTop + 60}px`;
+        message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
+        message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`; // Ajuster la position verticale
     }
 
     function showMessage() {
         let message = document.getElementById('emojiMessage');
         message.style.display = 'block';
     }
-
         function startGame() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
