@@ -191,6 +191,21 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
+        @keyframes moveRight {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(200px);
+        }
+    }
+
+    .emoji {
+        position: absolute;
+        font-size: 50px;
+        animation: moveRight 2s forwards;
+    }
     </style>
 </head>
 <body>
@@ -423,11 +438,6 @@
         emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
         emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
         document.body.appendChild(emoji);
-
-        setTimeout(() => {
-            emoji.remove();
-        }, 2000);
-
         }
 
         function startGame() {
