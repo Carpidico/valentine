@@ -27,7 +27,6 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             display: block;
             width: 400px;
-            height: 300px;
         }
 
         input {
@@ -37,6 +36,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 90%;
+            margin-bottom: 15px; /* Ajout de la marge en bas */
         }
 
         button {
@@ -225,7 +225,7 @@
         document.getElementById('ceinture').addEventListener('input', function() {
             let ceinture = this.value.trim().toLowerCase();
             if (ceinture === 'marron') {
-                document.getElementById('messageCeinture').innerText = "Je veux bien te mettre ma ceinture marron autour de tes mains";
+                document.getElementById('messageCeinture').innerText = "Je veux bien te mettre ma ceinture marron autour de tes mains👀";
                 document.getElementById('messageCeinture').style.display = 'block';
             } else {
                 document.getElementById('messageCeinture').style.display = 'none';
