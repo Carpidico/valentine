@@ -180,6 +180,17 @@
             color: black;
             font-family: 'Press Start 2P', cursive;
         }
+        
+        #restartGameButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -222,6 +233,14 @@
         </div>
     </div>
 
+    <div class="game-container" id="game">
+        <canvas id="gameCanvas" width="800" height="200"></canvas>
+        <p id="gameOverMessage" style="display: none;">Tu as perdu ! Reviens à la proposition.</p>
+        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
+        <div id="counter">0/10</div>
+    </div>
+    
     <div class="game-container" id="game">
         <canvas id="gameCanvas" width="800" height="200"></canvas>
         <p id="gameOverMessage" style="display: none;">Tu as perdu ! Reviens à la proposition.</p>
@@ -500,6 +519,22 @@
 
             update();
         }
+        
+         function endGame() {
+        gameOver = true;
+        document.getElementById('gameOverMessage').style.display = 'block';
+        document.getElementById('restartGameButton').style.display = 'block';
+    }
+
+    function restartGame() {
+        document.getElementById('gameOverMessage').style.display = 'none';
+        document.getElementById('restartGameButton').style.display = 'none';
+        document.getElementById('counter').innerText = '0/10';
+        noClickCount = 0;
+        gameOver = false;
+        counter = 0;
+        startGame();
+    }
 
         function backToProposal() {
             document.getElementById('game').style.display = 'none';
