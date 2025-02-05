@@ -268,7 +268,7 @@
 
     <div class="game-container" id="game">
         <canvas id="gameCanvas" width="800" height="200"></canvas>
-        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. Recommence!.</p>
+        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt!.</p>
         <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
@@ -286,7 +286,7 @@
                 document.getElementById('messageSamuel').style.display = 'block';
                 document.getElementById('messageMamori').style.display = 'none';
             } else if (homme === 'mamori') {
-                document.getElementById('messageMamori').innerText = "Tu es vilaine ça y'est met mon Prénom un peu😾";
+                document.getElementById('messageMamori').innerText = "Tu n'as pas le choix de mettre Samuel sinon je viens pas le 13, OH";
                 document.getElementById('messageMamori').style.display = 'block';
                 document.getElementById('messageSamuel').style.display = 'none';
             } else {
@@ -298,7 +298,7 @@
         document.getElementById('ceinture').addEventListener('input', function() {
             let ceinture = this.value.trim().toLowerCase();
             if (ceinture === 'marron') {
-                document.getElementById('messageCeinture').innerText = "Je veux bien te mettre ma ceinture marron autour de tes mains👀";
+                document.getElementById('messageCeinture').innerText = "Je vais te mettre une ceinture marron autour des mains pour embrasser ton corps sans m'arrêter";
                 document.getElementById('messageCeinture').style.display = 'block';
             } else {
                 document.getElementById('messageCeinture').style.display = 'none';
@@ -329,8 +329,14 @@
             On se donne alors rendez vous ensemble, tu trouveras les informations dans la lettre de la petacow! 
             (ne soit pas en retard (pov c'est moi qui vais l'être jppp)
             pense bien à prendre toutes tes affaires, et n'oublie rien 👀. Je suis heureux de faire ça avec toi ma cow. 
-            (et oui j'ai bien pris pour 2 personnes vilaine je suis pas un retardo sheepo) donc suce 😾
-            Je t'aime`;
+            Pour la suite, quand on arrivera on vérifiera que tout marche bien (jacuzzi etc...) On vas juste vérifier hein.. hum
+            ensuite le soir nous irons soit au restaurant lL'Oustaou pour 20h, j'aurais déjà réserver les places ou alors
+            on peut se cuisiner un repas entre nous et rester dans l'appartement 
+            (je sais pas si on va rester concentrer dans la cuisine, je vais peut être avoir envie de te prendre sur le plan de travail👀)
+            Ensuite après avoir manger on pourra se poser ensemble tous les 2 pour regarder un film ou commencer la série.
+            Si tu es sage je te ferais un très bon massage dont je t'ai parlé la dernière fois.. 
+            Tu auras aussi tes remerciements à me faire je n'oublie pas :)
+            Le lendemain matin je te cuisinerais un petit déjeuner ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas)`;
             messageElement.style.display = 'block';
 
             let flowers = document.querySelector('.flowers');
