@@ -145,11 +145,16 @@
     <script>
         let noClickCount = 0;
         let occupiedPositions = [];
+        
+        function normalizeString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
         function verifierInfos() {
-            let prenom = document.getElementById('prenom').value.trim().toLowerCase();
-            let nom = document.getElementById('nom').value.trim().toLowerCase();
-            let homme = document.getElementById('homme').value.trim().toLowerCase();
-            if (prenom === 'célèste' && nom === 'neuquelman' && (homme === 'mayreau' || homme === 'mamori')) {
+            let prenom = normalizeString(document.getElementById('prenom').value.trim());
+            let nom = normalizeString(document.getElementById('nom').value.trim());
+            let homme = normalizeString(document.getElementById('homme').value.trim());
+            if (prenom === 'celeste' && nom === 'ke' && (homme === 'mayreau' || homme === 'mamori')) {
                 document.getElementById('form').style.display = 'none';
                 document.getElementById('proposal').style.display = 'block';
             } else {
