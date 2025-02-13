@@ -24,6 +24,7 @@
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             display: block;
+            z-index: 1;
         }
         input {
             display: block;
@@ -97,21 +98,10 @@
             font-family: 'Lora', serif;
             display: none;
         }
-        .flowers, .cow {
-            display: none;
+        .flower {
             position: absolute;
+            font-size: 30px;
             animation: fadeIn 2s forwards;
-        }
-        .flowers {
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .cow {
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 80px;
         }
         @keyframes fadeIn {
             from {
@@ -150,10 +140,8 @@
             <p id="mamoriMessage">T'es obligée de dire oui!</p>
             <p id="stooopMessage">STOOOOP!</p>
         </div>
-        <div class="flowers">
-            🌸🌸🌸
-        </div>
-          </div>
+        <div class="flowers"></div>
+    </div>
     <script>
         let noClickCount = 0;
         let occupiedPositions = [];
@@ -161,7 +149,7 @@
             let prenom = document.getElementById('prenom').value.trim().toLowerCase();
             let nom = document.getElementById('nom').value.trim().toLowerCase();
             let homme = document.getElementById('homme').value.trim().toLowerCase();
-            if (prenom === 'célèste' && nom === 'ke' && (homme === 'mayreau' || homme === 'mamori')) {
+            if (prenom === 'célèste' && nom === 'neuquelman' && (homme === 'mayreau' || homme === 'mamori')) {
                 document.getElementById('form').style.display = 'none';
                 document.getElementById('proposal').style.display = 'block';
             } else {
@@ -279,3 +267,4 @@
     </script>
 </body>
 </html>
+``` ▋
