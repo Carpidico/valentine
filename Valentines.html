@@ -112,7 +112,7 @@
             display: none;
         }
 
-        .flowers, .cow-container {
+        .cow-container {
             position: absolute;
             animation: fadeIn 2s forwards;
         }
@@ -275,10 +275,6 @@
             <p id="stooopMessage">Je veux te voir</p>
         </div>
 
-        <div class="flowers">
-            🌸🌸🌸
-        </div>
-
         <div class="cow-container" onclick="addDustEmoji()">
             <span class="cow">🐄</span>
             <span class="dust"></span>
@@ -360,11 +356,9 @@
             Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
             messageElement.style.display = 'block';
 
-            let flowers = document.querySelector('.flowers');
+          
             let cowContainer = document.querySelector('.cow-container');
-            if (flowers) {
-                flowers.style.display = 'block';
-            }
+            
             if (cowContainer) {
                 cowContainer.style.display = 'block';
             }
