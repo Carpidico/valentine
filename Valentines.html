@@ -28,6 +28,8 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             display: block;
             width: 400px;
+            position: relative;
+            z-index: 1;
         }
 
         input {
@@ -224,9 +226,26 @@
         word-wrap: break-word; /* Permettre l'enroulement du texte */
         transform: translateX(0%); /* Centrer horizontalement */
     }
+
+    .background-emojis {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .background-emojis span {
+        font-size: 50px;
+        position: absolute;
+        animation: fadeIn 2s forwards;
+    }
     </style>
 </head>
 <body>
+    <div class="background-emojis" id="background-emojis"></div>
     <div class="form-container" id="form">
         <h2>OH! Tu es de retour cow?🐄</h2>
         <input type="text" id="prenom" placeholder="Prénom">
@@ -368,8 +387,8 @@
             let stooopMessage = document.getElementById('stooopMessage');
 
             if (ohMessage) ohMessage.style.display = 'none';
-            if (mamoriMessage) mamoriMessage.style.display = 'none';
-            if (stooopMessage) stooopMessage.style.display = 'none';
+            if (mamoriMessage) ohMessage.style.display = 'none';
+            if (stooopMessage) ohMessage.style.display = 'none';
         }
 
         function moveButton() {
@@ -589,6 +608,28 @@
             document.getElementById('proposal').style.display = 'block';
             document.querySelector('.yes').disabled = false;
         }
+        function getRandomPosition(element) {
+    const x = window.innerWidth - element.clientWidth;
+    const y = window.innerHeight - element.clientHeight;
+    const randomX = Math.floor(Math.random() * x);
+    const randomY = Math.floor(Math.random() * y);
+    return [randomX, randomY];
+}
+
+function createBackgroundEmojis() {
+    const emojisContainer = document.getElementById('background-emojis');
+    const emojis = ['🌸', '🌹', '💐', '🏵️', '🪻', '🐄'];
+    for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('span');
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        const [x, y] = getRandomPosition(emoji);
+        emoji.style.left = `${x}px`;
+        emoji.style.top = `${y}px`;
+        emojisContainer.appendChild(emoji);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', createBackgroundEmojis);
     </script>
 </body>
 </html>
