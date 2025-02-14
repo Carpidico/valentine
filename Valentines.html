@@ -1,1 +1,594 @@
-Error
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification d'identité et Proposition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #D8B7FF;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            position: relative;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            display: block;
+            width: 400px;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 90%;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .proposal-container {
+            display: none;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .container {
+            width: 700px;
+            height: 500px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+            border: 3px solid #9C4C9D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button.yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button.no {
+            background-color: #FF4C4C;
+            color: white;
+            position: relative;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .message-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 22px;
+            color: #9C4C9D;
+            top: 500px;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        #ohMessage, #mamoriMessage, #stooopMessage {
+            font-family: 'Lora', serif;
+            display: none;
+        }
+
+        .flowers, .cow-container {
+            position: absolute;
+            animation: fadeIn 2s forwards;
+        }
+
+        .flowers {
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .cow-container {
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 80px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .cow-container span {
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        div {
+            font-size: 50px;
+        }
+
+        #messageSamuel, #messageMamori, #messageCeinture {
+            font-size: 18px;
+            color: #9C4C9D;
+            display: none;
+            margin-top: 10px;
+        }
+
+        #message {
+            color: black;
+            font-family: 'Satisfy', cursive;
+            overflow-y: auto; /* Activer le défilement vertical pour le message */
+            max-height: 310px; /* Limiter la hauteur du message */
+        }
+
+        .game-container {
+            display: none;
+            text-align: center;
+            position: relative;
+        }
+
+        #gameCanvas {
+            border: 1px solid black;
+            background-color: #f9f9f9;
+        }
+
+        #counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: black;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        #restartGameButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        @keyframes moveRight {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(200px);
+        }
+    }
+
+     .emoji {
+        position: absolute;
+        font-size: 50px;
+        animation: moveRight 2s forwards;
+        cursor: pointer; 
+    }
+
+    .message {
+        display: none;
+        font-size: 20px;
+        color: #333;
+        position: absolute;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 300px; /* Largeur maximale */
+        max-height: 200px; /* Hauteur maximale */
+        overflow-y: auto; /* Activer le défilement vertical si nécessaire */
+        word-wrap: break-word; /* Permettre l'enroulement du texte */
+        transform: translateX(0%); /* Centrer horizontalement */
+    }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="form">
+        <h2>OH! Tu es de retour cow?🐄</h2>
+        <input type="text" id="prenom" placeholder="Prénom">
+        <input type="text" id="nom" placeholder="Nom">
+        <input type="text" id="homme" placeholder="Prénom de ton homme">
+        <input type="text" id="carte" placeholder="Ton code de téléphone cette fois stp">
+        <input type="text" id="ceinture" placeholder="Ta ceinture de karaté">
+        <button onclick="verifierInfos()">Valider</button>
+        <p id="erreur" style="color:red; display:none;">Imposteuracow ?</p>
+        <p id="messageSamuel"></p>
+        <p id="messageMamori"></p>
+        <p id="messageCeinture"></p>
+    </div>
+
+    <div class="proposal-container" id="proposal">
+        <div class="container">
+            <h1>Marine, tu seras ma Valentine ce 13 février.</h1>
+            <div class="buttons">
+                <button class="yes" onclick="yesClicked()">Oui</button>
+                <button class="no" onclick="moveButton()">Non</button>
+            </div>
+            <p id="message" style="display:none; margin-top:20px; font-size:18px;"></p>
+        </div>
+        <div class="message-container">
+            <p id="ohMessage">OH!</p>
+            <p id="mamoriMessage">Tu n'as pas le choix ma petite pute</p>
+            <p id="stooopMessage">Je veux te voir</p>
+        </div>
+
+        <div class="flowers">
+            🌸🌸🌸
+        </div>
+
+        <div class="cow-container" onclick="addDustEmoji()">
+            <span class="cow">🐄</span>
+            <span class="dust"></span>
+        </div>
+         <div class="message" id="emojiMessage">Adresse: RDC 26 Chemin de Montmeyan, Tavernes, 83670 et l'arrivée se fait à 17h puis on partira le matin à 11h :)</div>
+    </div>
+
+    <div class="game-container" id="game">
+        <canvas id="gameCanvas" width="800" height="200"></canvas>
+        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt!.</p>
+        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
+        <div id="counter">0/10</div>
+    </div>
+    
+    <script>
+        let noClickCount = 0;
+        let gameOver = false;
+        let counter = 0;
+
+        document.getElementById('homme').addEventListener('input', function() {
+            let homme = this.value.trim().toLowerCase();
+            if (homme === 'samuel') {
+                document.getElementById('messageSamuel').innerText = "Good Girl :)";
+                document.getElementById('messageSamuel').style.display = 'block';
+                document.getElementById('messageMamori').style.display = 'none';
+            } else if (homme === 'mamori') {
+                document.getElementById('messageMamori').innerText = "Tu n'as pas le choix de mettre Samuel sinon je vais devoir te punir le 13..";
+                document.getElementById('messageMamori').style.display = 'block';
+                document.getElementById('messageSamuel').style.display = 'none';
+            } else {
+                document.getElementById('messageSamuel').style.display = 'none';
+                document.getElementById('messageMamori').style.display = 'none';
+            }
+        });
+
+        document.getElementById('ceinture').addEventListener('input', function() {
+            let ceinture = this.value.trim().toLowerCase();
+            if (ceinture === 'marron') {
+                document.getElementById('messageCeinture').innerText = "Je vais te mettre une ceinture marron autour des mains pour embrasser ton corps sans m'arrêter";
+                document.getElementById('messageCeinture').style.display = 'block';
+            } else {
+                document.getElementById('messageCeinture').style.display = 'none';
+            }
+        });
+
+        function verifierInfos() {
+            console.log("Appel de la fonction verifierInfos");
+            let prenom = document.getElementById('prenom').value.trim().toLowerCase();
+            let nom = document.getElementById('nom').value.trim().toLowerCase();
+            let homme = document.getElementById('homme').value.trim().toLowerCase();
+            let ceinture = document.getElementById('ceinture').value.trim().toLowerCase();
+
+            console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}, Ceinture: ${ceinture}`);
+
+            if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori') && ceinture === 'marron') {
+                document.getElementById('form').style.display = 'none';
+                document.getElementById('proposal').style.display = 'block';
+            } else {
+                document.getElementById('erreur').style.display = 'block';
+            }
+        }
+
+        function yesClicked() {
+            console.log("Appel de la fonction yesClicked");
+            let messageElement = document.getElementById('message');
+            messageElement.innerText = `Ce jeudi 13 février, tu seras à moi, mon amour :)
+            On se donne alors rendez-vous ensemble, tu trouveras les informations dans la lettre de la petacow !
+            (Ne sois pas en retard... pov c'est moi qui vais l’être, jppp.)
+            Pense bien à prendre toutes tes affaires et n'oublie rien 👀. Je suis heureux de faire ça avec toi, ma cow.
+            Pour la suite, quand on arrivera, on vérifiera que tout marche bien (jacuzzi, etc...). On va juste vérifier, hein... hum.
+            Ensuite, le soir, nous irons soit au restaurant L'Oustaou pour 20h (j’aurai déjà réservé les places) 
+            soit on pourra se cuisiner un repas ensemble et rester dans l'appartement.
+            (Je ne sais pas si on va rester concentrés dans la cuisine... Je vais peut-être avoir envie de te prendre sur le plan de travail 👀.)
+            Après avoir mangé, on pourra se poser tous les deux pour regarder un film ou commencer la série.
+            Si tu es sage, je te ferai le très bon massage dont je t’ai parlé la dernière fois, passer de l'huile et toucher ton corps
+            c'est quelque chose qui m'a beaucoup manquer, et on va beaucoup profiter ensemble.
+            Tu auras aussi tes remerciements à me faire, je n’oublie pas :)
+            Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
+            messageElement.style.display = 'block';
+
+            let flowers = document.querySelector('.flowers');
+            let cowContainer = document.querySelector('.cow-container');
+            if (flowers) {
+                flowers.style.display = 'block';
+            }
+            if (cowContainer) {
+                cowContainer.style.display = 'block';
+            }
+
+            let noButton = document.querySelector('.no');
+            if (noButton) {
+                noButton.style.display = 'none';
+            }
+
+            removeCats();
+            setTimeout(() => {
+                hideMessageElements();
+            }, 500);
+        }
+
+        function hideMessageElements() {
+            console.log("Appel de la fonction hideMessageElements");
+            let ohMessage = document.getElementById('ohMessage');
+            let mamoriMessage = document.getElementById('mamoriMessage');
+            let stooopMessage = document.getElementById('stooopMessage');
+
+            if (ohMessage) ohMessage.style.display = 'none';
+            if (mamoriMessage) mamoriMessage.style.display = 'none';
+            if (stooopMessage) stooopMessage.style.display = 'none';
+        }
+
+        function moveButton() {
+            console.log("Appel de la fonction moveButton");
+            if (noClickCount >= 10) {
+                let button = document.querySelector('.no');
+                button.disabled = true;
+                button.innerText = "Bloqué!";
+                
+                document.getElementById('proposal').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
+                startGame();
+                
+                return;
+            }
+
+            let button = document.querySelector('.no');
+            let container = document.querySelector('.container');
+            let maxX = container.offsetWidth - button.offsetWidth - 10;
+            let maxY = container.offsetHeight - button.offsetHeight - 10;
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            button.style.position = 'absolute';
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+            button.style.transform = `scale(1.1)`;
+
+            setTimeout(() => {
+                button.style.transform = `scale(1)`;
+            }, 100);
+
+            addAngryCat();
+
+            noClickCount++;
+
+            if (noClickCount === 1) {
+                let ohMessage = document.getElementById('ohMessage');
+                ohMessage.style.display = 'block';
+                setTimeout(() => { ohMessage.style.display = 'none'; }, 2000);
+            } else if (noClickCount === 4) {
+                let mamoriMessage = document.getElementById('mamoriMessage');
+                mamoriMessage.innerText = "Tu n'as pas le choix ma petite pute";
+                mamoriMessage.style.display = 'block';
+                setTimeout(() => { mamoriMessage.style.display = 'none'; }, 2000);
+            } else if (noClickCount === 8) {
+                let stooopMessage = document.getElementById('stooopMessage');
+                stooopMessage.style.display = 'block';
+                setTimeout(() => { stooopMessage.style.display = 'none'; }, 2000);
+            }
+
+            if (noClickCount === 10) {
+                alert("Tu vas me refaire le coup vilaine, je t'aime mon coeur mais tu es têtu. Oh! Si tu recliques un jeu va apparaître et si tu le gagnes tu pourras peut être cliqué sur non (hell no) sautes par dessus les onis!");
+            }
+        }
+
+        function addAngryCat() {
+            console.log("Appel de la fonction addAngryCat");
+            let cat = document.createElement('div');
+            cat.innerText = "😾";
+            cat.style.position = 'absolute';
+            cat.style.left = `${Math.random() * window.innerWidth}px`;
+            cat.style.top = `${Math.random() * window.innerHeight}px`;
+            document.body.appendChild(cat);
+
+            setTimeout(() => {
+                cat.remove();
+            }, 2000);
+        }
+
+        function removeCats() {
+            console.log("Appel de la fonction removeCats");
+            let cats = document.querySelectorAll('div');
+            cats.forEach((cat) => {
+                if (cat.innerText === "😾") {
+                    cat.remove();
+                }
+            });
+        }
+
+        function addDustEmoji() {
+            console.log("Appel de la fonction addDustEmoji");
+            let dust = document.querySelector('.cow-container .dust');
+            dust.innerText = "💨";
+            
+           let emoji = document.createElement('div');
+        emoji.className = 'emoji';
+        emoji.innerText = "✉️";
+        document.body.appendChild(emoji);
+
+        // Positionner l'émoji
+        emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
+        emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
+        emoji.onclick = showMessage; // Ajouter l'événement de clic
+
+        // Placer le conteneur de message en dessous de l'émoji et centré
+        let message = document.getElementById('emojiMessage');
+        message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
+        message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`; // Ajuster la position verticale
+    }
+
+    function showMessage() {
+        let message = document.getElementById('emojiMessage');
+        message.style.display = 'block';
+    }
+        function startGame() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let cow = { x: 50, y: 150, width: 50, height: 50, dy: 0, gravity: 0.5, jump: 10 };
+            let obstacles = [];
+            let frame = 0;
+            gameOver = false;
+            counter = 0;
+
+            let obstacleTimer = 0;
+            let obstacleInterval = getRandomInterval();
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === ' ') {
+                    cow.dy = -cow.jump;
+                }
+            });
+
+            function getRandomInterval() {
+                return Math.floor(Math.random() * 100) + 50;  // Intervalle aléatoire entre 50 et 150 frames
+            }
+
+            function update() {
+                if (gameOver) return;
+
+                frame++;
+                cow.dy += cow.gravity;
+                cow.y += cow.dy;
+
+                if (cow.y + cow.height > canvas.height) {
+                    cow.y = canvas.height - cow.height;
+                    cow.dy = 0;
+                } else if (cow.y < 0) {
+                    cow.y = 0;
+                    cow.dy = 0;
+                }
+
+                obstacleTimer++;
+                if (obstacleTimer >= obstacleInterval) {
+                    let height = 50;
+                    obstacles.push({ x: canvas.width, y: canvas.height - height, width: 20, height: height, passed: false });
+                    obstacleTimer = 0;
+                    obstacleInterval = getRandomInterval();  // Réinitialiser l'intervalle aléatoire
+                }
+
+                obstacles.forEach((obstacle, index) => {
+                    obstacle.x -= 5;
+                    if (obstacle.x + obstacle.width < 0) {
+                        obstacles.splice(index, 1);
+                    }
+
+                    if (
+                        cow.x < obstacle.x + obstacle.width &&
+                        cow.x + cow.width > obstacle.x &&
+                        cow.y < obstacle.y + obstacle.height &&
+                        cow.y + cow.height > obstacle.y
+                    ) {
+                        endGame();
+                    }
+
+                    if (obstacle.x + obstacle.width < cow.x && !obstacle.passed) {
+                        obstacle.passed = true;
+                        counter++;
+                        document.getElementById('counter').innerText = `${counter}/10`;
+                        if (counter >= 10) {
+                            gameOver = true;
+                            document.getElementById('gameOverMessage').innerText = "Tu as gagnacow ! Reviens à la proposition.";
+                            document.getElementById('gameOverMessage').style.display = 'block';
+                            document.getElementById('backToProposal').style.display = 'block';
+                        }
+                    }
+                });
+
+                draw();
+                requestAnimationFrame(update);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Dessiner l'emoji "🐄" pour représenter la vache
+                ctx.font = "50px Arial";
+                ctx.fillText("🐄", cow.x, cow.y + cow.height);
+
+                ctx.fillStyle = 'black';
+                obstacles.forEach((obstacle) => {
+                    ctx.fillText("👹", obstacle.x, obstacle.y + obstacle.height);
+                });
+            }
+
+            update();
+        }
+        
+         function endGame() {
+        gameOver = true;
+        document.getElementById('gameOverMessage').style.display = 'block';
+        document.getElementById('restartGameButton').style.display = 'block';
+    }
+
+    function restartGame() {
+        document.getElementById('gameOverMessage').style.display = 'none';
+        document.getElementById('restartGameButton').style.display = 'none';
+        document.getElementById('counter').innerText = '0/10';
+        noClickCount = 0;
+        gameOver = false;
+        counter = 0;
+        startGame();
+    }
+
+        function backToProposal() {
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('proposal').style.display = 'block';
+            document.querySelector('.yes').disabled = false;
+        }
+    </script>
+</body>
+</html>
