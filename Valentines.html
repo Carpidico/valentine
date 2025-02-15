@@ -21,55 +21,6 @@
             position: relative;
         }
 
-        nav {
-            width: 100%;
-            background-color: #4CAF50;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            float: left;
-        }
-
-        nav ul li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        nav ul li a:hover {
-            background-color: #3e8e41;
-        }
-
-        .section {
-            display: none;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .form-container, .proposal-container, .game-container {
-            margin-top: 60px; /* To avoid overlap with the fixed navigation bar */
-        }
-
         .form-container {
             background-color: white;
             padding: 30px;
@@ -79,7 +30,6 @@
             width: 400px;
             position: relative;
             z-index: 1;
-            margin: auto;
         }
 
         input {
@@ -89,6 +39,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 90%;
+            margin-bottom: 15px;
         }
 
         button {
@@ -115,7 +66,6 @@
             border: 3px solid #9C4C9D;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            margin: auto;
         }
 
         .container:hover {
@@ -223,7 +173,6 @@
         #gameCanvas {
             border: 1px solid black;
             background-color: #f9f9f9;
-            margin: auto;
         }
 
         #counter {
@@ -296,34 +245,22 @@
     </style>
 </head>
 <body>
-    <!-- Menu de navigation -->
-    <nav>
-        <ul>
-            <li><a href="#" onclick="showSection('verification')">Vérification</a></li>
-            <li><a href="#" onclick="showSection('proposal')">Proposition</a></li>
-            <li><a href="#" onclick="showSection('game'); startGame()">Jeu</a></li>
-        </ul>
-    </nav>
-    
     <div class="background-emojis" id="background-emojis"></div>
-
-    <div id="verification" class="section active">
-        <div class="form-container">
-            <h2>OH! Tu es de retour cow?🐄</h2>
-            <input type="text" id="prenom" placeholder="Prénom">
-            <input type="text" id="nom" placeholder="Nom">
-            <input type="text" id="homme" placeholder="Prénom de ton homme">
-            <input type="text" id="carte" placeholder="Ton code de téléphone cette fois stp">
-            <input type="text" id="ceinture" placeholder="Ta ceinture de karaté">
-            <button onclick="verifierInfos()">Valider</button>
-            <p id="erreur" style="color:red; display:none;">Imposteuracow ?</p>
-            <p id="messageSamuel"></p>
-            <p id="messageMamori"></p>
-            <p id="messageCeinture"></p>
-        </div>
+    <div class="form-container" id="form">
+        <h2>OH! Tu es de retour cow?🐄</h2>
+        <input type="text" id="prenom" placeholder="Prénom">
+        <input type="text" id="nom" placeholder="Nom">
+        <input type="text" id="homme" placeholder="Prénom de ton homme">
+        <input type="text" id="carte" placeholder="Ton code de téléphone cette fois stp">
+        <input type="text" id="ceinture" placeholder="Ta ceinture de karaté">
+        <button onclick="verifierInfos()">Valider</button>
+        <p id="erreur" style="color:red; display:none;">Imposteuracow ?</p>
+        <p id="messageSamuel"></p>
+        <p id="messageMamori"></p>
+        <p id="messageCeinture"></p>
     </div>
 
-    <div id="proposal" class="section">
+    <div class="proposal-container" id="proposal">
         <div class="container">
             <h1>Marine, tu seras ma Valentine ce 13 février.</h1>
             <div class="buttons">
@@ -345,23 +282,18 @@
          <div class="message" id="emojiMessage">Adresse: RDC 26 Chemin de Montmeyan, Tavernes, 83670 et l'arrivée se fait à 17h puis on partira le matin à 11h :)</div>
     </div>
 
-    <div id="game" class="section">
-        <div class="game-container">
-            <canvas id="gameCanvas" width="800" height="200"></canvas>
-            <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt!.</p>
-            <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
-            <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
-            <div id="counter">0/10</div>
-        </div>
+    <div class="game-container" id="game">
+        <canvas id="gameCanvas" width="800" height="200"></canvas>
+        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt!.</p>
+        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
+        <div id="counter">0/10</div>
     </div>
     
     <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
+        let noClickCount = 0;
+        let gameOver = false;
+        let counter = 0;
 
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
@@ -399,7 +331,8 @@
             console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}, Ceinture: ${ceinture}`);
 
             if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori') && ceinture === 'marron') {
-                showSection('proposal');
+                document.getElementById('form').style.display = 'none';
+                document.getElementById('proposal').style.display = 'block';
             } else {
                 document.getElementById('erreur').style.display = 'block';
             }
@@ -423,7 +356,9 @@
             Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
             messageElement.style.display = 'block';
 
+          
             let cowContainer = document.querySelector('.cow-container');
+            
             if (cowContainer) {
                 cowContainer.style.display = 'block';
             }
@@ -456,8 +391,11 @@
                 let button = document.querySelector('.no');
                 button.disabled = true;
                 button.innerText = "Bloqué!";
-                showSection('game');
+                
+                document.getElementById('proposal').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
                 startGame();
+                
                 return;
             }
 
