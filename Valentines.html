@@ -21,6 +21,44 @@
             position: relative;
         }
 
+        nav {
+            width: 100%;
+            background-color: #4CAF50;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            float: left;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #3e8e41;
+        }
+
+        .form-container, .proposal-container, .game-container {
+            margin-top: 60px; /* To avoid overlap with the fixed navigation bar */
+        }
+
         .form-container {
             background-color: white;
             padding: 30px;
