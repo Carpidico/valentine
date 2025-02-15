@@ -602,21 +602,34 @@
             document.getElementById('proposal').style.display = 'block';
             document.querySelector('.yes').disabled = false;
         }
-        function getRandomPosition(element) {
+       function getRandomPosition(element, existingPositions) {
     const x = window.innerWidth - element.clientWidth;
     const y = window.innerHeight - element.clientHeight;
-    const randomX = Math.floor(Math.random() * x);
-    const randomY = Math.floor(Math.random() * y);
+    let randomX, randomY;
+    let overlaps;
+
+    do {
+        randomX = Math.floor(Math.random() * x);
+        randomY = Math.floor(Math.random() * y);
+        overlaps = existingPositions.some(pos => {
+            const distance = Math.sqrt(Math.pow(randomX - pos.x, 2) + Math.pow(randomY - pos.y, 2));
+            return distance < 50; // Adjust this value based on the size of the emojis to avoid overlap
+        });
+    } while (overlaps);
+
+    existingPositions.push({ x: randomX, y: randomY });
     return [randomX, randomY];
 }
 
 function createBackgroundEmojis() {
     const emojisContainer = document.getElementById('background-emojis');
     const emojis = ['🌸', '🌹', '💐', '🏵️', '🪻', '🐄'];
+    const existingPositions = [];
+    
     for (let i = 0; i < 20; i++) {
         const emoji = document.createElement('span');
         emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        const [x, y] = getRandomPosition(emoji);
+        const [x, y] = getRandomPosition(emoji, existingPositions);
         emoji.style.left = `${x}px`;
         emoji.style.top = `${y}px`;
         emojisContainer.appendChild(emoji);
