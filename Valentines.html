@@ -491,9 +491,9 @@
       document.body.appendChild(emoji);
 
     // Positionner l'émoji
-    emoji.style.left = `${window.innerWidth - 100}px`; // Positionner à droite
-    emoji.style.top = `50%`; // Ajuster la position verticale
-    emoji.onclick = showScrollMessage; // Ajouter l'événement de clic
+      emoji.style.left = `${document.querySelector('.cow').offsetRight}px`;
+      emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
+      emoji.onclick = showScrollMessage; // Ajouter l'événement de clic
 
     let message = document.getElementById('scrollMessage');
     message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
