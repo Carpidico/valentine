@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vérification d'identité et Proposition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Dancing+Script&family=Satisfy&family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -21,7 +18,7 @@
             position: relative;
         }
 
-        .form-container {
+        .form-container, .proposal-container, .game-container {
             background-color: white;
             padding: 30px;
             border-radius: 10px;
@@ -32,22 +29,20 @@
             z-index: 1;
         }
 
-        input {
+        .form-container input, .form-container button {
             display: block;
             margin: 10px auto;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 90%;
-            margin-bottom: 15px;
         }
 
-        button {
+        .form-container button {
             background-color: #4CAF50;
             color: white;
             border: none;
             padding: 10px;
-            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -84,12 +79,12 @@
             gap: 20px;
         }
 
-        button.yes {
+        .buttons .yes {
             background-color: #4CAF50;
             color: white;
         }
 
-        button.no {
+        .buttons .no {
             background-color: #FF4C4C;
             color: white;
             position: relative;
@@ -146,24 +141,6 @@
             }
         }
 
-        div {
-            font-size: 50px;
-        }
-
-        #messageSamuel, #messageMamori, #messageCeinture {
-            font-size: 18px;
-            color: #9C4C9D;
-            display: none;
-            margin-top: 10px;
-        }
-
-        #message {
-            color: black;
-            font-family: 'Satisfy', cursive;
-            overflow-y: auto; /* Activer le défilement vertical pour le message */
-            max-height: 310px; /* Limiter la hauteur du message */
-        }
-
         .game-container {
             display: none;
             text-align: center;
@@ -183,7 +160,7 @@
             color: black;
             font-family: 'Press Start 2P', cursive;
         }
-        
+
         #restartGameButton {
             margin-top: 20px;
             padding: 10px 20px;
@@ -194,54 +171,54 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
+
         @keyframes moveRight {
-        from {
-            transform: translateX(0);
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(200px);
+            }
         }
-        to {
-            transform: translateX(200px);
+
+        .emoji {
+            position: absolute;
+            font-size: 50px;
+            animation: moveRight 2s forwards;
+            cursor: pointer;
         }
-    }
 
-     .emoji {
-        position: absolute;
-        font-size: 50px;
-        animation: moveRight 2s forwards;
-        cursor: pointer; 
-    }
+        .message {
+            display: none;
+            font-size: 20px;
+            color: #333;
+            position: absolute;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+            word-wrap: break-word;
+            transform: translateX(0%);
+        }
 
-    .message {
-        display: none;
-        font-size: 20px;
-        color: #333;
-        position: absolute;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 300px; /* Largeur maximale */
-        max-height: 200px; /* Hauteur maximale */
-        overflow-y: auto; /* Activer le défilement vertical si nécessaire */
-        word-wrap: break-word; /* Permettre l'enroulement du texte */
-        transform: translateX(0%); /* Centrer horizontalement */
-    }
+        .background-emojis {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .background-emojis {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        overflow: hidden;
-    }
-
-    .background-emojis span {
-        font-size: 50px;
-        position: absolute;
-        animation: fadeIn 2s forwards;
-    }
+        .background-emojis span {
+            font-size: 50px;
+            position: absolute;
+            animation: fadeIn 2s forwards;
+        }
     </style>
 </head>
 <body>
@@ -279,7 +256,7 @@
             <span class="cow">🐄</span>
             <span class="dust"></span>
         </div>
-         <div class="message" id="emojiMessage">Adresse: RDC 26 Chemin de Montmeyan, Tavernes, 83670 et l'arrivée se fait à 17h puis on partira le matin à 11h :)</div>
+        <div class="message" id="emojiMessage">Adresse: RDC 26 Chemin de Montmeyan, Tavernes, 83670 et l'arrivée se fait à 17h puis on partira le matin à 11h :)</div>
     </div>
 
     <div class="game-container" id="game">
@@ -289,7 +266,7 @@
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
-    
+
     <script>
         let noClickCount = 0;
         let gameOver = false;
@@ -322,13 +299,10 @@
         });
 
         function verifierInfos() {
-            console.log("Appel de la fonction verifierInfos");
             let prenom = document.getElementById('prenom').value.trim().toLowerCase();
             let nom = document.getElementById('nom').value.trim().toLowerCase();
             let homme = document.getElementById('homme').value.trim().toLowerCase();
             let ceinture = document.getElementById('ceinture').value.trim().toLowerCase();
-
-            console.log(`Prénom: ${prenom}, Nom: ${nom}, Homme: ${homme}, Ceinture: ${ceinture}`);
 
             if (prenom === 'marine' && nom === 'keller' && (homme === 'samuel' || homme === 'mamori') && ceinture === 'marron') {
                 document.getElementById('form').style.display = 'none';
@@ -339,7 +313,6 @@
         }
 
         function yesClicked() {
-            console.log("Appel de la fonction yesClicked");
             let messageElement = document.getElementById('message');
             messageElement.innerText = `Ce jeudi 13 février, tu seras à moi, mon amour :)
             On se donne alors rendez-vous ensemble, tu trouveras les informations dans la lettre de la petacow !
@@ -356,9 +329,7 @@
             Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
             messageElement.style.display = 'block';
 
-          
             let cowContainer = document.querySelector('.cow-container');
-            
             if (cowContainer) {
                 cowContainer.style.display = 'block';
             }
@@ -375,18 +346,12 @@
         }
 
         function hideMessageElements() {
-            console.log("Appel de la fonction hideMessageElements");
-            let ohMessage = document.getElementById('ohMessage');
-            let mamoriMessage = document.getElementById('mamoriMessage');
-            let stooopMessage = document.getElementById('stooopMessage');
-
-            if (ohMessage) ohMessage.style.display = 'none';
-            if (mamoriMessage) ohMessage.style.display = 'none';
-            if (stooopMessage) ohMessage.style.display = 'none';
+            document.getElementById('ohMessage').style.display = 'none';
+            document.getElementById('mamoriMessage').style.display = 'none';
+            document.getElementById('stooopMessage').style.display = 'none';
         }
 
         function moveButton() {
-            console.log("Appel de la fonction moveButton");
             if (noClickCount >= 10) {
                 let button = document.querySelector('.no');
                 button.disabled = true;
@@ -439,7 +404,6 @@
         }
 
         function addAngryCat() {
-            console.log("Appel de la fonction addAngryCat");
             let cat = document.createElement('div');
             cat.innerText = "😾";
             cat.style.position = 'absolute';
@@ -453,7 +417,6 @@
         }
 
         function removeCats() {
-            console.log("Appel de la fonction removeCats");
             let cats = document.querySelectorAll('div');
             cats.forEach((cat) => {
                 if (cat.innerText === "😾") {
@@ -463,30 +426,28 @@
         }
 
         function addDustEmoji() {
-            console.log("Appel de la fonction addDustEmoji");
             let dust = document.querySelector('.cow-container .dust');
             dust.innerText = "💨";
             
-           let emoji = document.createElement('div');
-        emoji.className = 'emoji';
-        emoji.innerText = "✉️";
-        document.body.appendChild(emoji);
+            let emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.innerText = "✉️";
+            document.body.appendChild(emoji);
 
-        // Positionner l'émoji
-        emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
-        emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
-        emoji.onclick = showMessage; // Ajouter l'événement de clic
+            emoji.style.left = `${document.querySelector('.cow').offsetLeft}px`;
+            emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
+            emoji.onclick = showMessage;
 
-        // Placer le conteneur de message en dessous de l'émoji et centré
-        let message = document.getElementById('emojiMessage');
-        message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
-        message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`; // Ajuster la position verticale
-    }
+            let message = document.getElementById('emojiMessage');
+            message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
+            message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`;
+        }
 
-    function showMessage() {
-        let message = document.getElementById('emojiMessage');
-        message.style.display = 'block';
-    }
+        function showMessage() {
+            let message = document.getElementById('emojiMessage');
+            message.style.display = 'block';
+        }
+
         function startGame() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
