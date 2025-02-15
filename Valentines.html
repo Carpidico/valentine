@@ -21,19 +21,15 @@
             position: relative;
         }
 
-        .form-container, .proposal-container, .game-container, .new-page-container {
+        .form-container {
             background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            display: none;
+            display: block;
             width: 400px;
             position: relative;
             z-index: 1;
-        }
-
-        .form-container {
-            display: block;
         }
 
         input {
@@ -53,6 +49,11 @@
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        .proposal-container {
+            display: none;
+            font-family: 'Dancing Script', cursive;
         }
 
         .container {
@@ -83,12 +84,12 @@
             gap: 20px;
         }
 
-        .buttons .yes {
+        button.yes {
             background-color: #4CAF50;
             color: white;
         }
 
-        .buttons .no {
+        button.no {
             background-color: #FF4C4C;
             color: white;
             position: relative;
@@ -164,6 +165,7 @@
         }
 
         .game-container {
+            display: none;
             text-align: center;
             position: relative;
         }
@@ -202,7 +204,7 @@
         }
     }
 
-    .emoji {
+     .emoji {
         position: absolute;
         font-size: 50px;
         animation: moveRight 2s forwards;
@@ -273,10 +275,11 @@
             <p id="stooopMessage">Je veux te voir</p>
         </div>
 
-        <div class="cow-container" onclick="addDustEmoji(); addScrollEmoji();">
+        <div class="cow-container" onclick="addDustEmoji()">
             <span class="cow">🐄</span>
             <span class="dust"></span>
         </div>
+         <div class="message" id="emojiMessage">Adresse: RDC 26 Chemin de Montmeyan, Tavernes, 83670 et l'arrivée se fait à 17h puis on partira le matin à 11h :)</div>
     </div>
 
     <div class="game-container" id="game">
@@ -286,13 +289,7 @@
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
-
-    <div class="new-page-container" id="newPage">
-        <h1>Nouvelle Page</h1>
-        <p>Bienvenue sur la nouvelle page !</p>
-        <button onclick="backToProposal()">Retour à la proposition</button>
-    </div>
-
+    
     <script>
         let noClickCount = 0;
         let gameOver = false;
@@ -359,6 +356,7 @@
             Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
             messageElement.style.display = 'block';
 
+          
             let cowContainer = document.querySelector('.cow-container');
             
             if (cowContainer) {
@@ -484,41 +482,11 @@
         message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
         message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`; // Ajuster la position verticale
     }
-        
-       function addScrollEmoji() {
-         let emoji = document.createElement('div');
-      emoji.className = 'emoji';
-      emoji.innerText = "📜";
-      document.body.appendChild(emoji);
 
-    // Positionner l'émoji
-      emoji.style.left = `${document.querySelector('.cow').offsetRight}px`;
-      emoji.style.top = `${document.querySelector('.cow').offsetTop}px`;
-      emoji.onclick = showNewPage; // Ajouter l'événement de clic
-
-    let message = document.getElementById('scrollMessage');
-    message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
-    message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`;
-}
-        function showScrollMessage() {
-    let message = document.getElementById('scrollMessage');
-    message.style.display = 'block';
-}
-        
     function showMessage() {
         let message = document.getElementById('emojiMessage');
         message.style.display = 'block';
     }
-        function showNewPage() {
-    document.getElementById('form').style.display = 'none';
-    document.getElementById('proposal').style.display = 'none';
-    document.getElementById('game').style.display = 'none';
-    document.getElementById('newPage').style.display = 'block';
-}
-        function backToProposal() {
-    document.getElementById('newPage').style.display = 'none';
-    document.getElementById('proposal').style.display = 'block';
-}
         function startGame() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
