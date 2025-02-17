@@ -247,7 +247,7 @@
 <body>
     <div class="background-emojis" id="background-emojis"></div>
     <div class="form-container" id="form">
-        <h2>OH! Tu es de retour cow?🐄</h2>
+        <h2>Petacow verification 🐄 *accent anglais*</h2>
         <input type="text" id="prenom" placeholder="Prénom">
         <input type="text" id="nom" placeholder="Nom">
         <input type="text" id="homme" placeholder="Prénom de ton homme">
@@ -262,7 +262,7 @@
 
     <div class="proposal-container" id="proposal">
         <div class="container">
-            <h1>Marine, tu seras ma Valentine ce 13 février.</h1>
+            <h1>Marine, tu seras ma Valentine ce 27 février?</h1>
             <div class="buttons">
                 <button class="yes" onclick="yesClicked()">Oui</button>
                 <button class="no" onclick="moveButton()">Non</button>
@@ -271,8 +271,8 @@
         </div>
         <div class="message-container">
             <p id="ohMessage">OH!</p>
-            <p id="mamoriMessage">Tu n'as pas le choix ma petite pute</p>
-            <p id="stooopMessage">Je veux te voir</p>
+            <p id="mamoriMessage">Allez stop je vais devoir te punir</p>
+            <p id="stooopMessage">vilainacow</p>
         </div>
 
         <div class="cow-container" onclick="addDustEmoji()">
@@ -284,8 +284,8 @@
 
     <div class="game-container" id="game">
         <canvas id="gameCanvas" width="800" height="200"></canvas>
-        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt!.</p>
-        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retour à la proposition</button>
+        <p id="gameOverMessage" style="display: none;">Tu t'es mangé le oni cow.. mange pise plutôt! oh.</p>
+        <button id="backToProposal" style="display: none;" onclick="backToProposal()">Retourne dire oui</button>
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
@@ -302,7 +302,7 @@
                 document.getElementById('messageSamuel').style.display = 'block';
                 document.getElementById('messageMamori').style.display = 'none';
             } else if (homme === 'mamori') {
-                document.getElementById('messageMamori').innerText = "Tu n'as pas le choix de mettre Samuel sinon je vais devoir te punir le 13..";
+                document.getElementById('messageMamori').innerText = "Tu n'as pas le choix de mettre Samuel sinon je vais devoir te punir le 27..";
                 document.getElementById('messageMamori').style.display = 'block';
                 document.getElementById('messageSamuel').style.display = 'none';
             } else {
@@ -341,19 +341,19 @@
         function yesClicked() {
             console.log("Appel de la fonction yesClicked");
             let messageElement = document.getElementById('message');
-            messageElement.innerText = `Ce jeudi 13 février, tu seras à moi, mon amour :)
+            messageElement.innerText = `Ce jeudi 27 février, tu seras à moi, mon amour :)
             On se donne alors rendez-vous ensemble, tu trouveras les informations dans la lettre de la petacow !
             (Ne sois pas en retard... pov c'est moi qui vais l’être, jppp.)
-            Pense bien à prendre toutes tes affaires et n'oublie rien 👀. Je suis heureux de faire ça avec toi, ma cow.
+            Pense bien à prendre toutes tes affaires et n'oublie rien 👀. Je suis heureux de faire ça avec toi, mon coeur.
             Pour la suite, quand on arrivera, on vérifiera que tout marche bien (jacuzzi, etc...). On va juste vérifier, hein... hum.
-            Ensuite, le soir, nous irons soit au restaurant L'Oustaou pour 20h (j’aurai déjà réservé les places) 
-            soit on pourra se cuisiner un repas ensemble et rester dans l'appartement.
+            Ensuite, le soir, nous cuisinerons tes pâtes à la burrata et le tiramyusuuu.
             (Je ne sais pas si on va rester concentrés dans la cuisine... Je vais peut-être avoir envie de te prendre sur le plan de travail 👀.)
             Après avoir mangé, on pourra se poser tous les deux pour regarder un film ou commencer la série.
             Si tu es sage, je te ferai le très bon massage dont je t’ai parlé la dernière fois, passer de l'huile et toucher ton corps
             c'est quelque chose qui m'a beaucoup manquer, et on va beaucoup profiter ensemble.
             Tu auras aussi tes remerciements à me faire, je n’oublie pas :)
-            Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).`;
+            Le lendemain matin, je te cuisinerai un petit déjeuner, ou alors tu pourras le faire avec moi (sans se déconcentrer... ou pas).
+            PS. clique une deuxième fois sur la cow si tu as envie de lire ce que tu m'inspires, je t'aime`;
             messageElement.style.display = 'block';
 
           
