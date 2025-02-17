@@ -19,13 +19,28 @@
             text-align: center;
             margin: 0;
             position: relative;
+            transition: background-color 0.5s ease; 
         }
         
         .dark-mode {
     background-color: #4B0082;  /* Mauve sombre */
     color: #ddd;  /* Couleur de texte plus claire pour le contraste */
 }
-
+        
+        .dark-mode::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(0, 0, 0, 0.5), transparent),
+                        radial-gradient(circle at top right, rgba(0, 0, 0, 0.5), transparent),
+                        radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.5), transparent),
+                        radial-gradient(circle at bottom right, rgba(0, 0, 0, 0.5), transparent);
+            pointer-events: none;  /* Pour que les clics passent à travers */
+            z-index: 0;
+        }
         .form-container {
             background-color: white;
             padding: 30px;
