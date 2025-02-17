@@ -290,10 +290,17 @@
         <div id="counter">0/10</div>
     </div>
     
+    <div class="new-page" id="newPage">
+       <h2>Nouvelle page</h2>
+       <p>Bienvenue sur la nouvelle page !</p>
+</div>
+    
     <script>
         let noClickCount = 0;
         let gameOver = false;
         let counter = 0;
+        let cowClicked = false; // Variable to track if the cow has been clicked
+        let cowClickCount = 0; // Variable to track the number of clicks on the cow
 
         document.getElementById('homme').addEventListener('input', function() {
             let homme = this.value.trim().toLowerCase();
@@ -462,12 +469,14 @@
             });
         }
 
-        function addDustEmoji() {
-            console.log("Appel de la fonction addDustEmoji");
-            let dust = document.querySelector('.cow-container .dust');
-            dust.innerText = "💨";
-            
-           let emoji = document.createElement('div');
+      function addDustEmoji() {
+    cowClickCount++;
+    if (cowClickCount === 1) {
+        console.log("Appel de la fonction addDustEmoji");
+        let dust = document.querySelector('.cow-container .dust');
+        dust.innerText = "💨";
+        
+        let emoji = document.createElement('div');
         emoji.className = 'emoji';
         emoji.innerText = "✉️";
         document.body.appendChild(emoji);
@@ -481,12 +490,15 @@
         let message = document.getElementById('emojiMessage');
         message.style.left = `${emoji.offsetLeft + emoji.offsetWidth / 2}px`;
         message.style.top = `${emoji.offsetTop + emoji.offsetHeight + 10}px`; // Ajuster la position verticale
+    } else if (cowClickCount === 2) {
+        showNewPage();
     }
+}
 
-    function showMessage() {
-        let message = document.getElementById('emojiMessage');
-        message.style.display = 'block';
-    }
+function showMessage() {
+    let message = document.getElementById('emojiMessage');
+    message.style.display = 'block';
+}
         function startGame() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
@@ -619,6 +631,13 @@
 
     existingPositions.push({ x: randomX, y: randomY });
     return [randomX, randomY];
+}
+
+function showNewPage() {
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('proposal').style.display = 'none';
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('newPage').style.display = 'block';
 }
 
 function createBackgroundEmojis() {
