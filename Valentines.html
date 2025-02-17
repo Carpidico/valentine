@@ -263,17 +263,6 @@
         animation: fadeIn 2s forwards;
     }
      
-        .new-page {
-    display: none;
-    font-size: 20px;
-    color: #ddd;
-    position: absolute;
-    background-color: #4B0082;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
     </style>
 </head>
 <body>
@@ -321,11 +310,6 @@
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
-    
-    <div class="new-page" id="newPage">
-       <h2>Nouvelle page</h2>
-       <p>Bienvenue sur la nouvelle page !</p>
-</div>
     
     <script>
         let noClickCount = 0;
@@ -512,6 +496,8 @@
         emoji.remove();
     }
             document.body.classList.add('dark-mode');
+}
+         document.getElementById('background-emojis').style.display = 'none';
 }
 
     function addDustEmoji() {
