@@ -20,6 +20,11 @@
             margin: 0;
             position: relative;
         }
+        
+        .dark-mode {
+    background-color: #4B0082;  /* Mauve sombre */
+    color: #ddd;  /* Couleur de texte plus claire pour le contraste */
+}
 
         .form-container {
             background-color: white;
@@ -491,8 +496,10 @@
     if (emoji) {
         emoji.remove();
     }
+            document.body.classList.add('dark-mode');
 }
-      function addDustEmoji() {
+
+    function addDustEmoji() {
     cowClickCount++;
     if (cowClickCount === 1) {
         console.log("Appel de la fonction addDustEmoji");
