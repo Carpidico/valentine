@@ -486,6 +486,11 @@
     document.getElementById('proposal').style.display = 'none';
     document.getElementById('game').style.display = 'none';
     document.getElementById('newPage').style.display = 'block';
+
+            const emoji = document.querySelector('.emoji');
+    if (emoji) {
+        emoji.remove();
+    }
 }
       function addDustEmoji() {
     cowClickCount++;
