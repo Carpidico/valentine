@@ -242,6 +242,18 @@
         position: absolute;
         animation: fadeIn 2s forwards;
     }
+     
+        .new-page {
+    display: none;
+    font-size: 20px;
+    color: #333;
+    position: absolute;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
     </style>
 </head>
 <body>
@@ -469,6 +481,12 @@
             });
         }
 
+        function showNewPage() {
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('proposal').style.display = 'none';
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('newPage').style.display = 'block';
+}
       function addDustEmoji() {
     cowClickCount++;
     if (cowClickCount === 1) {
@@ -631,13 +649,6 @@ function showMessage() {
 
     existingPositions.push({ x: randomX, y: randomY });
     return [randomX, randomY];
-}
-
-function showNewPage() {
-    document.getElementById('form').style.display = 'none';
-    document.getElementById('proposal').style.display = 'none';
-    document.getElementById('game').style.display = 'none';
-    document.getElementById('newPage').style.display = 'block';
 }
 
 function createBackgroundEmojis() {
