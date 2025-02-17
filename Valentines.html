@@ -485,19 +485,18 @@
             });
         }
 
-        function showNewPage() {
+    function showNewPage() {
     document.getElementById('form').style.display = 'none';
     document.getElementById('proposal').style.display = 'none';
     document.getElementById('game').style.display = 'none';
-    document.getElementById('newPage').style.display = 'block';
 
-            const emoji = document.querySelector('.emoji');
+    const emoji = document.querySelector('.emoji');
     if (emoji) {
         emoji.remove();
     }
-            document.body.classList.add('dark-mode');
-}
-         document.getElementById('background-emojis').style.display = 'none';
+
+    document.body.classList.add('dark-mode');
+    document.getElementById('background-emojis').style.display = 'none';
 }
 
     function addDustEmoji() {
