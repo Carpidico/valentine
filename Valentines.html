@@ -265,9 +265,13 @@
         /* Styles pour les emojis cliquables sur la nouvelle page */
 .clickable-emojis {
     display: flex;
-    justify-content: flex-start;
-    gap: 50px;
+    justify-content: space-between;
+    gap: 100px; /* Ajuster la valeur de gap pour espacer les emojis */
     margin-top: 20px;
+    position: absolute;
+    top: 10%; /* Positionnez les emojis plus haut sur la page */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .clickable-emojis span {
