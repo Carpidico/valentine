@@ -561,7 +561,12 @@
         poem4: "Sous le voile de la nuit étoilée, mes mots prennent leur envol vers toi, Dans le ciel tel une nuée d'éclats de lumière, Ils cherchent ces yeux verts, comme des étoiles errantes. Dans l'intimité de cette toile virtuelle, je me perds à tisser une toile de vers, espérant capturer ne serait-ce qu'un instant de ton attention précieuse. Alors que cette plume animée qui écrit, Se morfond ne pensant qu'à être à tes côtés Devant ta douce personne je m'extasie, Un spectacle aussi doux à mes yeux que pour les tiens de voir le ciel s'embraser et gronder. Puissent ces mots parcourir les distances, traverser les frontières de l'écran, pour te trouver puis te murmurer délicatement, l'écho de mon cœur."
     }
 
+ 
     const fadeInText = document.getElementById('fadeInText');
+
+    // Réinitialiser l'animation de fondu
+    fadeInText.style.display = 'none';
+    fadeInText.offsetHeight; // Forcer un reflow pour réinitialiser l'animation
     fadeInText.innerText = poems[poem];
     fadeInText.style.display = 'block';
 }
