@@ -262,6 +262,43 @@
         position: absolute;
         animation: fadeIn 2s forwards;
     }
+        /* Styles pour les emojis cliquables sur la nouvelle page */
+.clickable-emojis {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.clickable-emojis span {
+    font-size: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.clickable-emojis span:hover {
+    transform: scale(1.2);
+}
+
+.fade-in-text {
+    display: none;
+    font-size: 24px;
+    color: #ddd;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
      
     </style>
 </head>
@@ -310,6 +347,15 @@
         <button id="restartGameButton" style="display: none;" onclick="restartGame()">Recommencer</button>
         <div id="counter">0/10</div>
     </div>
+    <!-- Nouvelle page avec les emojis cliquables -->
+<div class="clickable-emojis" id="newPage" style="display: none;">
+    <span class="emoji-clickable" onclick="showText('🫂')">🫂</span>
+    <span class="emoji-clickable" onclick="showText('❣️')">❣️</span>
+    <span class="emoji-clickable" onclick="showText('🌊')">🌊</span>
+    <span class="emoji-clickable" onclick="showText('🌃')">🌃</span>
+</div>
+
+<div class="fade-in-text" id="fadeInText"></div>
     
     <script>
         let noClickCount = 0;
@@ -497,6 +543,13 @@
 
     document.body.classList.add('dark-mode');
     document.getElementById('background-emojis').style.display = 'none';
+    document.getElementById('newPage').style.display = 'block';
+}
+
+function showText(text) {
+    const fadeInText = document.getElementById('fadeInText');
+    fadeInText.innerText = text;
+    fadeInText.style.display = 'block';
 }
 
     function addDustEmoji() {
