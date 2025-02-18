@@ -350,14 +350,14 @@
     </div>
     <!-- Nouvelle page avec les emojis cliquables -->
 <div class="clickable-emojis" id="newPage" style="display: none;">
-    <span class="emoji-clickable" onclick="showText('🫂')">🫂</span>
-    <span class="emoji-clickable" onclick="showText('❣️')">❣️</span>
-    <span class="emoji-clickable" onclick="showText('🌊')">🌊</span>
-    <span class="emoji-clickable" onclick="showText('🌃')">🌃</span>
+    <span class="emoji-clickable" onclick="showText('poem1')">🫂</span>
+    <span class="emoji-clickable" onclick="showText('poem2')">❣️</span>
+    <span class="emoji-clickable" onclick="showText('poem3')">🌊</span>
+    <span class="emoji-clickable" onclick="showText('poem4')">🌃</span>
 </div>
 
 <div class="fade-in-text" id="fadeInText"></div>
-    
+
     <script>
         let noClickCount = 0;
         let gameOver = false;
@@ -547,9 +547,16 @@
     document.getElementById('newPage').style.display = 'block';
 }
 
-function showText(text) {
+        function showText(poem) {
+    const poems = {
+        poem1: "Ton premier poème ici...",
+        poem2: "Ton deuxième poème ici...",
+        poem3: "Ton troisième poème ici...",
+        poem4: "Ton quatrième poème ici..."
+    }
+
     const fadeInText = document.getElementById('fadeInText');
-    fadeInText.innerText = text;
+    fadeInText.innerText = poems[poem];
     fadeInText.style.display = 'block';
 }
 
