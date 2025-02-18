@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"> <!-- Ajout de la police de style machine à écrire -->
     <style>
         body {
             display: flex;
@@ -24,9 +24,9 @@
         }
         
         .dark-mode {
-    background-color: #4B0082;  /* Mauve sombre */
-    color: #ddd;  /* Couleur de texte plus claire pour le contraste */
-}
+            background-color: #4B0082;  /* Mauve sombre */
+            color: #ddd;  /* Couleur de texte plus claire pour le contraste */
+        }
         
         .dark-mode::before {
             content: '';
@@ -42,6 +42,26 @@
             pointer-events: none;  /* Pour que les clics passent à travers */
             z-index: 0;
         }
+
+        .background-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            color: rgba(0, 0, 0, 0.1); /* Gris clair et transparent */
+            font-size: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            overflow: hidden;
+        }
+
+        .background-text span {
+            margin: 0 5px;
+        }
+
         .form-container {
             background-color: white;
             padding: 30px;
@@ -217,100 +237,112 @@
         }
         
         @keyframes moveRight {
-        from {
-            transform: translateX(0);
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(200px);
+            }
         }
-        to {
-            transform: translateX(200px);
+
+        .emoji {
+            position: absolute;
+            font-size: 50px;
+            animation: moveRight 2s forwards;
+            cursor: pointer; 
         }
-    }
 
-     .emoji {
-        position: absolute;
-        font-size: 50px;
-        animation: moveRight 2s forwards;
-        cursor: pointer; 
-    }
+        .message {
+            display: none;
+            font-size: 20px;
+            color: #333;
+            position: absolute;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px; /* Largeur maximale */
+            max-height: 200px; /* Hauteur maximale */
+            overflow-y: auto; /* Activer le défilement vertical si nécessaire */
+            word-wrap: break-word; /* Permettre l'enroulement du texte */
+            transform: translateX(0%); /* Centrer horizontalement */
+        }
 
-    .message {
-        display: none;
-        font-size: 20px;
-        color: #333;
-        position: absolute;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 300px; /* Largeur maximale */
-        max-height: 200px; /* Hauteur maximale */
-        overflow-y: auto; /* Activer le défilement vertical si nécessaire */
-        word-wrap: break-word; /* Permettre l'enroulement du texte */
-        transform: translateX(0%); /* Centrer horizontalement */
-    }
+        .background-emojis {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .background-emojis {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        overflow: hidden;
-    }
+        .background-emojis span {
+            font-size: 50px;
+            position: absolute;
+            animation: fadeIn 2s forwards;
+            opacity: 0.2; /* Rendre les emojis discrets */
+        }
 
-    .background-emojis span {
-        font-size: 50px;
-        position: absolute;
-        animation: fadeIn 2s forwards;
-    }
         /* Styles pour les emojis cliquables sur la nouvelle page */
-.clickable-emojis {
-    display: flex;
-    justify-content: space-between;
-    gap: 100px; /* Ajuster la valeur de gap pour espacer les emojis */
-    margin-top: 20px;
-    position: absolute;
-    top: 10%; /* Positionnez les emojis plus haut sur la page */
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .clickable-emojis {
+            display: flex;
+            justify-content: space-between;
+            gap: 100px; /* Ajuster la valeur de gap pour espacer les emojis */
+            margin-top: 20px;
+            position: absolute;
+            top: 10%; /* Positionnez les emojis plus haut sur la page */
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-.clickable-emojis span {
-    font-size: 50px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
-}
+        .clickable-emojis span {
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; /* Spécifier les propriétés de transition */
+        }
 
-.clickable-emojis span:hover {
-    transform: scale(1.3);
-    color: #FFD700; /* Couleur dorée pour l'illumination */
-}
+        .clickable-emojis span:hover {
+            transform: scale(1.3);
+            color: #FFD700; /* Couleur dorée pour l'illumination */
+        }
 
-.fade-in-text {
-    display: none;
-    font-size: 24px;
-    color: #ddd;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: fadeIn 2s forwards;
-    font-family: 'Special Elite', cursive; /* Utiliser la police de style machine à écrire */
-}
+        .fade-in-text {
+            display: none;
+            font-size: 24px;
+            color: #ddd;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadeIn 1s forwards;
+            font-family: 'Special Elite', cursive; /* Utiliser la police de style machine à écrire */
+        }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-     
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="background-emojis" id="background-emojis"></div>
+    <div class="background-text">
+        <span>je t'aime</span>
+        <span>forta cow</span>
+        <span>je crois en toi</span>
+        <span>mamori est une pute</span>
+        <span>je t'aime</span>
+        <span>forta cow</span>
+        <span>je crois en toi</span>
+        <span>mamori est une pute</span>
+        
+         </div>
     <div class="form-container" id="form">
         <h2>Petacow verification 🐄 *accent anglais*</h2>
         <input type="text" id="prenom" placeholder="Prénom">
