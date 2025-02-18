@@ -265,19 +265,20 @@
         /* Styles pour les emojis cliquables sur la nouvelle page */
 .clickable-emojis {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-evenly;
+    gap: 30px;
     margin-top: 20px;
 }
 
 .clickable-emojis span {
     font-size: 50px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .clickable-emojis span:hover {
-    transform: scale(1.2);
+    transform: scale(1.3);
+    color: #FFD700; /* Couleur dorée pour l'illumination */
 }
 
 .fade-in-text {
